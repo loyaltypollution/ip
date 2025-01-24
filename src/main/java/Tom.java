@@ -27,7 +27,40 @@ public class Tom {
                         System.out.println(" " + (i + 1) + ". " + tasks[i]);
                     }
                     break;
+                case "mark": {
+                    int taskNum = inputBuffer.nextInt();
+                    if (taskNum >= taskCount) {
+                        String errMsg = String.format("Wrong index! There are only %d tasks!", taskCount);
+                        System.out.println(errMsg);
+                        break;
+                    }
+                    Task modifyTask = tasks[taskNum - 1];
+                    if (modifyTask.markDone()) {
+                        System.out.println("Nice! I've marked this task as done:\n  " + modifyTask);
+                    } else {
+                        System.out.println("No change: this task is already marked as done:\n  " + modifyTask);                        
+                    }
+                    break;
+                }
+                    
+                case "unmark": {
+                    int taskNum = inputBuffer.nextInt();
+                    if (taskNum >= taskCount) {
+                        String errMsg = String.format("Wrong index! There are only %d tasks!", taskCount);
+                        System.out.println(errMsg);
+                        break;
+                    }
+                    Task modifyTask = tasks[taskNum - 1];
+                    if (modifyTask.markUndone()) {
+                        System.out.println("Nice! I've marked this task as done:\n  " + modifyTask);
+                    } else {
+                        System.out.println("No change: this task is already marked as done:\n  " + modifyTask);                        
+                    }
+                    break;    
+                }
+
                 default:
+                    
                     if (taskCount < 100) {
                         tasks[taskCount] = new Task(userInput);
                         taskCount++;
