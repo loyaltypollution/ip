@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 public class Tom {
     public static void main(String[] args) {
+        String[] tasks = new String[100];
+        int taskCount = 0;
+
         String logo = "___________             \n"
                     + "\\__    ___/___   _____  \n"
                     + "  |    | /  _ \\ /     \\ \n"
@@ -17,7 +20,19 @@ public class Tom {
             if (userInput.equals("bye")) {
                 break;
             }
-            System.out.println(userInput);
+            else if (userInput.equals("list")) {
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println(" " + (i + 1) + ". " + tasks[i]);
+                }
+                continue;
+            }
+            if (taskCount < 100) {
+                tasks[taskCount] = userInput;
+                taskCount++;
+                System.out.println(" added: " + userInput);
+            } else {
+                System.out.println(" Task list is full! Cannot add more tasks.");
+            }
         }
         inputBuffer.close();
 
