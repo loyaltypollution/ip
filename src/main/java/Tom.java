@@ -6,12 +6,12 @@ public class Tom {
         int taskCount = 0;
 
         String logo = "___________             \n"
-                    + "\\__    ___/___   _____  \n"
-                    + "  |    | /  _ \\ /     \\ \n"
-                    + "  |    |(  <_> )  Y Y  \\\n"
-                    + "  |____| \\____/|__|_|  /\n"
-                    + "                     \\/ \n";
-            System.out.println("Hello from\n" + logo);
+                + "\\__    ___/___   _____  \n"
+                + "  |    | /  _ \\ /     \\ \n"
+                + "  |    |(  <_> )  Y Y  \\\n"
+                + "  |____| \\____/|__|_|  /\n"
+                + "                     \\/ \n";
+        System.out.println("Hello from\n" + logo);
         System.out.println("What can I do for you?");
 
         Scanner inputBuffer = new Scanner(System.in);
