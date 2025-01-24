@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Tom {
     public static void main(String[] args) {
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
 
         String logo = "___________             \n"
@@ -29,7 +29,7 @@ public class Tom {
                     break;
                 default:
                     if (taskCount < 100) {
-                        tasks[taskCount] = userInput;
+                        tasks[taskCount] = new Task(userInput);
                         taskCount++;
                         System.out.println(" added: " + userInput);
                     } else {
