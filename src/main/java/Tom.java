@@ -59,6 +59,18 @@ public class Tom {
                     break;    
                 }
 
+                case "todo": {
+                    System.err.println("not implemented yet");
+                }
+                case "deadline": {
+                    System.err.println("not implemented yet");
+                    
+                }
+                case "event": {
+                    System.err.println("not implemented yet");
+                    
+                }
+
                 default:
                     
                     if (taskCount < 100) {
