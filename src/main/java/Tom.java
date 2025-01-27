@@ -17,8 +17,11 @@ public class Tom {
         Scanner inputBuffer = new Scanner(System.in);
         boolean continueReading = true;
         while (continueReading) {
-            String userInput = inputBuffer.next();
-            switch (userInput) {
+            String userInput = inputBuffer.nextLine();
+            String[] inputComponents = userInput.split(" ");
+            String command = inputComponents[0];
+
+            switch (command) {
                 case "bye":
                     continueReading = false;
                     break;
@@ -28,8 +31,15 @@ public class Tom {
                     }
                     break;
                 case "mark": {
-                    int taskNum = inputBuffer.nextInt();
-                    if (taskNum >= taskCount) {
+                    int taskNum;
+                    try {
+                        taskNum = Integer.parseInt(inputComponents[1]);
+                    } catch (NumberFormatException e) {
+                        System.out.println("instruction format is mark [int]");
+                        break;
+                    }
+
+                    if (taskNum <= 0 || taskNum > taskCount) {
                         String errMsg = String.format("Wrong index! There are only %d tasks!", taskCount);
                         System.out.println(errMsg);
                         break;
@@ -44,7 +54,13 @@ public class Tom {
                 }
                     
                 case "unmark": {
-                    int taskNum = inputBuffer.nextInt();
+                    int taskNum;
+                    try {
+                        taskNum = Integer.parseInt(inputComponents[1]);
+                    } catch (NumberFormatException e) {
+                        System.out.println("instruction format is mark [int]");
+                        break;
+                    }
                     if (taskNum >= taskCount) {
                         String errMsg = String.format("Wrong index! There are only %d tasks!", taskCount);
                         System.out.println(errMsg);
