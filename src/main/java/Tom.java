@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Tom {
@@ -18,8 +20,8 @@ public class Tom {
         boolean continueReading = true;
         while (continueReading) {
             String userInput = inputBuffer.nextLine();
-            String[] inputComponents = userInput.split(" ");
-            String command = inputComponents[0];
+            List<String> inputComponents = Arrays.asList(userInput.split(" "));
+            String command = inputComponents.get(0);
 
             switch (command) {
                 case "bye":
@@ -33,8 +35,11 @@ public class Tom {
                 case "mark": {
                     int taskNum;
                     try {
-                        taskNum = Integer.parseInt(inputComponents[1]);
+                        taskNum = Integer.parseInt(inputComponents.get(1));
                     } catch (NumberFormatException e) {
+                        System.out.println("instruction format is mark [int] please leave an integer");
+                        break;
+                    } catch (IndexOutOfBoundsException e) {
                         System.out.println("instruction format is mark [int]");
                         break;
                     }
@@ -56,12 +61,15 @@ public class Tom {
                 case "unmark": {
                     int taskNum;
                     try {
-                        taskNum = Integer.parseInt(inputComponents[1]);
+                        taskNum = Integer.parseInt(inputComponents.get(1));
                     } catch (NumberFormatException e) {
+                        System.out.println("instruction format is mark [int] please leave an integer");
+                        break;
+                    } catch (IndexOutOfBoundsException e) {
                         System.out.println("instruction format is mark [int]");
                         break;
                     }
-                    if (taskNum >= taskCount) {
+                    if (taskNum <= 0 || taskNum > taskCount) {
                         String errMsg = String.format("Wrong index! There are only %d tasks!", taskCount);
                         System.out.println(errMsg);
                         break;
@@ -76,15 +84,43 @@ public class Tom {
                 }
 
                 case "todo": {
-                    System.err.println("not implemented yet");
+                    if (taskCount < 100) {
+                        tasks[taskCount] = new Todo(String.join(" ", inputComponents));
+                        taskCount++;
+                        System.out.println(" added: " + userInput);
+                    } else {
+                        System.out.println(" Task list is full! Cannot add more tasks.");
+                    }
+                    break;
                 }
                 case "deadline": {
-                    System.err.println("not implemented yet");
-                    
+                    if (taskCount < 100) {
+                        int deadlinePos = inputComponents.indexOf("/by") + 1;
+                        List<String> fromString = inputComponents.subList(deadlinePos, inputComponents.size());
+                        String deadline = String.join(" ", fromString);
+                        tasks[taskCount] = new Deadline(userInput, deadline);
+                        taskCount++;
+                        System.out.println(" added: " + userInput);
+                    } else {
+                        System.out.println(" Task list is full! Cannot add more tasks.");
+                    }
+                    break;
                 }
                 case "event": {
-                    System.err.println("not implemented yet");
-                    
+                    if (taskCount < 100) {
+                        int fromPos = inputComponents.indexOf("/from") + 1;
+                        int toPos = inputComponents.indexOf("/to") + 1;
+                        List<String> fromString = inputComponents.subList(fromPos, toPos);
+                        String start = String.join(" ", fromString);
+                        List<String> toString = inputComponents.subList(toPos, inputComponents.size());
+                        String end = String.join(" ", toString);
+                        tasks[taskCount] = new Event(userInput, start, end);
+                        taskCount++;
+                        System.out.println(" added: " + userInput);
+                    } else {
+                        System.out.println(" Task list is full! Cannot add more tasks.");
+                    }                    
+                    break;
                 }
 
                 default:
