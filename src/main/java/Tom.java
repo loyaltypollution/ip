@@ -123,6 +123,10 @@ public class Tom {
                     break;
                 }
 
+                case "delete":
+                    System.err.println("not implemented");
+                    break;
+
                 default:
                     
                     if (taskCount < 100) {
