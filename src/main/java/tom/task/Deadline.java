@@ -1,3 +1,5 @@
+package tom.task;
+
 public class Deadline extends Task {
     
     protected String end;

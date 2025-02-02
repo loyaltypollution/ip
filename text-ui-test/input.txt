@@ -10,4 +10,5 @@ mark 0
 list
 unmark 1
 list
+save
 bye
