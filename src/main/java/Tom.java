@@ -120,9 +120,28 @@ public class Tom {
                     break;
                 }
 
-                case "delete":
-                    System.err.println("not implemented");
+                case "delete": {
+                    int taskNum;
+                    try {
+                        taskNum = Integer.parseInt(inputComponents.get(1));
+                    } catch (NumberFormatException e) {
+                        System.out.println("instruction format is delete [int] please leave an integer");
+                        break;
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("instruction format is delete [int]");
+                        break;
+                    }
+
+                    if (taskNum <= 0 || taskNum > tasks.size()) {
+                        String errMsg = String.format("Wrong index! There are only %d tasks!", tasks.size());
+                        System.out.println(errMsg);
+                        break;
+                    }
+                    Task deletedTask = tasks.get(taskNum - 1);
+                    tasks.remove(taskNum - 1);
+                    System.out.println(String.format("Noted. I've removed this task:\n %s \nYou now have %d tasks in the list.", deletedTask, tasks.size()));
                     break;
+                }
 
                 default:
                     
