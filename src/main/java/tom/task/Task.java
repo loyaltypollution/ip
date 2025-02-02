@@ -29,6 +29,10 @@ public class Task {
         return res;
     }
 
+    public String toFileFormatString() {
+        return String.format("_ | %s | %s", this.getStatusIcon(), this.getDescription());
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s",  this.getStatusIcon(), this.getDescription());
