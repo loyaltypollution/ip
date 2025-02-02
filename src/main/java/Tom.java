@@ -3,6 +3,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import tom.task.Task;
+import tom.task.Deadline;
+import tom.task.Event;
+import tom.task.Todo;
+
 public class Tom {
     public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<Task>(100);
@@ -53,11 +58,11 @@ public class Tom {
                     if (modifyTask.markDone()) {
                         System.out.println("Nice! I've marked this task as done:\n  " + modifyTask);
                     } else {
-                        System.out.println("No change: this task is already marked as done:\n  " + modifyTask);                        
+                        System.out.println("No change: this task is already marked as done:\n  " + modifyTask);
                     }
                     break;
                 }
-                    
+
                 case "unmark": {
                     int taskNum;
                     try {
@@ -78,9 +83,9 @@ public class Tom {
                     if (modifyTask.markUndone()) {
                         System.out.println("Nice! I've marked this task as done:\n  " + modifyTask);
                     } else {
-                        System.out.println("No change: this task is already marked as done:\n  " + modifyTask);                        
+                        System.out.println("No change: this task is already marked as done:\n  " + modifyTask);
                     }
-                    break;    
+                    break;
                 }
 
                 case "todo": {
@@ -116,7 +121,7 @@ public class Tom {
                         System.out.println(" added: " + userInput);
                     } else {
                         System.out.println(" Task list is full! Cannot add more tasks.");
-                    }                    
+                    }
                     break;
                 }
 
@@ -139,12 +144,14 @@ public class Tom {
                     }
                     Task deletedTask = tasks.get(taskNum - 1);
                     tasks.remove(taskNum - 1);
-                    System.out.println(String.format("Noted. I've removed this task:\n %s \nYou now have %d tasks in the list.", deletedTask, tasks.size()));
+                    System.out.println(
+                            String.format("Noted. I've removed this task:\n %s \nYou now have %d tasks in the list.",
+                                    deletedTask, tasks.size()));
                     break;
                 }
 
                 default:
-                    
+
                     if (tasks.size() < 100) {
                         tasks.add(new Task(userInput));
                         System.out.println(" added: " + userInput);
