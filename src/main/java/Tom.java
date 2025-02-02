@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,6 +11,7 @@ import tom.task.Task;
 import tom.task.Deadline;
 import tom.task.Event;
 import tom.task.Todo;
+import tom.tasklist.TaskList;
 
 public class Tom {
     public static void main(String[] args) {
@@ -147,6 +152,29 @@ public class Tom {
                     System.out.println(
                             String.format("Noted. I've removed this task:\n %s \nYou now have %d tasks in the list.",
                                     deletedTask, tasks.size()));
+                    break;
+                }
+
+                case "save": {
+                    String path = "./data/tom.txt";
+                    try {
+                        File file = new File(path);
+                        file.getParentFile().mkdirs();
+                        if (!file.exists()) {
+                            file.createNewFile();
+                        }
+                        
+                        BufferedWriter taskWriter = new BufferedWriter(new FileWriter(path));
+                        String tasksText = "";
+                        for (Task task : tasks) {
+                            tasksText += task.toFileFormatString() + "\n";
+                        }
+                        taskWriter.write(tasksText);
+                        taskWriter.close();
+                    } catch (IOException e) {
+                        System.out.println("Error caught with message: " + e.getMessage());
+                    }
+                    System.out.println("Successfully saved file to " + path);
                     break;
                 }
 
