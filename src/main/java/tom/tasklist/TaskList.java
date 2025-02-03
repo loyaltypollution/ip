@@ -3,6 +3,7 @@ package tom.tasklist;
 import java.util.ArrayList;
 
 import tom.task.Task;
+import tom.ui.Ui;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -17,5 +18,12 @@ public class TaskList {
 
     public int size() {
         return tasks.size();
+    }
+
+    public void printTaskList(Ui ui) {
+        int counter = 1;
+        for (Task task : tasks) {
+            ui.showMessage(" %d %s", counter++, task);
+        }
     }
 }

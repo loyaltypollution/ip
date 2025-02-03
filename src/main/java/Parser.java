@@ -1,4 +1,5 @@
 import tom.command.Command;
+import tom.command.ListCommand;
 import tom.command.TodoCommand;
 import tom.ui.Ui;
 import tom.command.ByeCommand;
@@ -15,6 +16,7 @@ public class Parser {
                 String description = ui.readLine();
                 return new TodoCommand(description);
             case "list":
+                return new ListCommand();
             case "mark":
             case "unmark":
                 break;
