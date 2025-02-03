@@ -9,12 +9,7 @@ public class Ui {
         this.inputBuffer = new Scanner(System.in);
     }
 
-    public String readCommand() {
-        return inputBuffer.nextLine();
-    }
-
-    public String waitLine() {
-        while (!inputBuffer.hasNext()) {}
+    public String readLine() {
         return inputBuffer.nextLine();
     }
 
@@ -33,7 +28,8 @@ public class Ui {
         this.showMessage(msg);
     }
 
-    public void showMessage(String msg) {
-        System.out.println(msg);
+    public void showMessage(String msg, Object ...args) {
+        String outputMsg = String.format(msg, args);
+        System.out.println(outputMsg);
     }
 }
