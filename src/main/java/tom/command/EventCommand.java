@@ -1,5 +1,7 @@
 package tom.command;
 
+import java.time.LocalDate;
+
 import tom.storage.Storage;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
@@ -9,10 +11,10 @@ import tom.task.Event;
 public class EventCommand extends Command {
 
     private String description;
-    private String start;
-    private String end;
+    private LocalDate start;
+    private LocalDate end;
 
-    public EventCommand(String description, String start, String end) {
+    public EventCommand(String description, LocalDate start, LocalDate end) {
         this.description = description;
         this.start = start;
         this.end = end;

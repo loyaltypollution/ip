@@ -1,3 +1,8 @@
+package tom.parser;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import tom.command.Command;
 import tom.command.ListCommand;
 import tom.command.MarkCommand;
@@ -13,6 +18,19 @@ import tom.command.ByeCommand;
 import tom.ui.Ui;
 
 public class Parser {
+
+    private static final String DATE_PATTERN = "^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$";
+
+    public static LocalDate stringToDate(String string) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(string, formatter);
+    }
+
+    public static String dateToString(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+        return date.format(formatter);
+    }
+
     public static Command parse(String commandHead, Ui ui) {
         String[] inputComponents = commandHead.split(" ", 2);
 
@@ -28,16 +46,19 @@ public class Parser {
                 ui.showMessage("Provide task description: ");
                 String description = ui.readPattern("\\w+");
                 ui.showMessage("Provide task end time: ");
-                String end = ui.readPattern("\\w+");
+                String endString = ui.readPattern(DATE_PATTERN);
+                LocalDate end = stringToDate(endString);
                 return new DeadlineCommand(description, end);
             }
             case "event": {
                 ui.showMessage("Provide task description: ");
                 String description = ui.readPattern("\\w+");
                 ui.showMessage("Provide task start time: ");
-                String start = ui.readPattern("\\w+");
+                String startString = ui.readPattern(DATE_PATTERN);
+                LocalDate start = stringToDate(startString);
                 ui.showMessage("Provide task end time: ");
-                String end = ui.readPattern("\\w+");
+                String endString = ui.readPattern(DATE_PATTERN);
+                LocalDate end = stringToDate(endString);
                 return new EventCommand(description, start, end);
             }
             case "list":

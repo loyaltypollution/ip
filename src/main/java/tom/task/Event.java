@@ -1,11 +1,15 @@
 package tom.task;
 
+import java.time.LocalDate;
+
+import tom.parser.Parser;
+
 public class Event extends Task{
     
-    protected String start;
-    protected String end;
+    protected LocalDate start;
+    protected LocalDate end;
 
-    public Event(String description, String start, String end) {
+    public Event(String description, LocalDate start, LocalDate end) {
         super(description);
         this.start = start;
         this.end = end;
@@ -18,6 +22,8 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.start, this.end);
+        String startString = Parser.dateToString(this.start);
+        String endString = Parser.dateToString(this.end);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), startString, endString);
     }
 }

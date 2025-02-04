@@ -1,5 +1,6 @@
 import tom.tasklist.TaskList;
 import tom.command.Command;
+import tom.parser.Parser;
 import tom.storage.Storage;
 import tom.ui.Ui;
 

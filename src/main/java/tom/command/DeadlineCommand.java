@@ -1,5 +1,7 @@
 package tom.command;
 
+import java.time.LocalDate;
+
 import tom.storage.Storage;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
@@ -9,9 +11,9 @@ import tom.task.Deadline;
 public class DeadlineCommand extends Command {
 
     private String description;
-    private String end;
+    private LocalDate end;
 
-    public DeadlineCommand(String description, String end) {
+    public DeadlineCommand(String description, LocalDate end) {
         this.description = description;
         this.end = end;
     }
