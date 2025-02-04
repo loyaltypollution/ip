@@ -35,59 +35,59 @@ public class Parser {
         String[] inputComponents = commandHead.split(" ", 2);
 
         switch (inputComponents[0]) {
-            case "bye":
-                return new ByeCommand();
-            case "todo": {
-                ui.showMessage("Provide task description: ");
-                String description = ui.readPattern("\\w+");
-                return new TodoCommand(description);
-            }
-            case "deadline": {
-                ui.showMessage("Provide task description: ");
-                String description = ui.readPattern("\\w+");
-                ui.showMessage("Provide task end time: ");
-                String endString = ui.readPattern(DATE_PATTERN);
-                LocalDate end = stringToDate(endString);
-                return new DeadlineCommand(description, end);
-            }
-            case "event": {
-                ui.showMessage("Provide task description: ");
-                String description = ui.readPattern("\\w+");
-                ui.showMessage("Provide task start time: ");
-                String startString = ui.readPattern(DATE_PATTERN);
-                LocalDate start = stringToDate(startString);
-                ui.showMessage("Provide task end time: ");
-                String endString = ui.readPattern(DATE_PATTERN);
-                LocalDate end = stringToDate(endString);
-                return new EventCommand(description, start, end);
-            }
-            case "list":
-                return new ListCommand();
-            case "mark": {
-                ui.showMessage("Indicate which item: ");
-                String num = ui.readPattern("\\d+");
-                // due to regex, we know that num is a number
-                Integer position = Integer.parseInt(num);
-                return new MarkCommand(position);
-            }
-            case "unmark": {
-                ui.showMessage("Indicate which item: ");
-                String num = ui.readPattern("\\d+");
-                // due to regex, we know that num is a number
-                Integer position = Integer.parseInt(num);
-                return new UnmarkCommand(position);
-            }
-            case "delete": {
-                ui.showMessage("Indicate which item: ");
-                String num = ui.readPattern("\\d+");
-                // due to regex, we know that num is a number
-                Integer position = Integer.parseInt(num);
-                return new DeleteCommand(position);
-            }
-            case "save":
-                return new SaveCommand();
-            default:
-                return new UnknownCommand();
+        case "bye":
+            return new ByeCommand();
+        case "todo": {
+            ui.showMessage("Provide task description: ");
+            String description = ui.readPattern("\\w+");
+            return new TodoCommand(description);
+        }
+        case "deadline": {
+            ui.showMessage("Provide task description: ");
+            String description = ui.readPattern("\\w+");
+            ui.showMessage("Provide task end time: ");
+            String endString = ui.readPattern(DATE_PATTERN);
+            LocalDate end = stringToDate(endString);
+            return new DeadlineCommand(description, end);
+        }
+        case "event": {
+            ui.showMessage("Provide task description: ");
+            String description = ui.readPattern("\\w+");
+            ui.showMessage("Provide task start time: ");
+            String startString = ui.readPattern(DATE_PATTERN);
+            LocalDate start = stringToDate(startString);
+            ui.showMessage("Provide task end time: ");
+            String endString = ui.readPattern(DATE_PATTERN);
+            LocalDate end = stringToDate(endString);
+            return new EventCommand(description, start, end);
+        }
+        case "list":
+            return new ListCommand();
+        case "mark": {
+            ui.showMessage("Indicate which item: ");
+            String num = ui.readPattern("\\d+");
+            // due to regex, we know that num is a number
+            Integer position = Integer.parseInt(num);
+            return new MarkCommand(position);
+        }
+        case "unmark": {
+            ui.showMessage("Indicate which item: ");
+            String num = ui.readPattern("\\d+");
+            // due to regex, we know that num is a number
+            Integer position = Integer.parseInt(num);
+            return new UnmarkCommand(position);
+        }
+        case "delete": {
+            ui.showMessage("Indicate which item: ");
+            String num = ui.readPattern("\\d+");
+            // due to regex, we know that num is a number
+            Integer position = Integer.parseInt(num);
+            return new DeleteCommand(position);
+        }
+        case "save":
+            return new SaveCommand();
+        default:
+            return new UnknownCommand();
         }
     }
 }
