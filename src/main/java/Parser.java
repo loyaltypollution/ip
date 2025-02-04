@@ -7,6 +7,7 @@ import tom.command.TodoCommand;
 import tom.command.DeadlineCommand;
 import tom.command.EventCommand;
 import tom.command.UnknownCommand;
+import tom.command.DeleteCommand;
 import tom.command.ByeCommand;
 
 import tom.ui.Ui;
@@ -54,6 +55,13 @@ public class Parser {
                 // due to regex, we know that num is a number
                 Integer position = Integer.parseInt(num);
                 return new UnmarkCommand(position);
+            }
+            case "delete": {
+                ui.showMessage("Indicate which item: ");
+                String num = ui.readPattern("\\d+");
+                // due to regex, we know that num is a number
+                Integer position = Integer.parseInt(num);
+                return new DeleteCommand(position);
             }
             case "save":
                 return new SaveCommand();

@@ -22,6 +22,14 @@ public class TaskList implements Iterable<Task> {
         this.tasks.add(task);
     }
 
+    public boolean removeTask(int position) {
+        if (0 >= position || position > this.tasks.size()) {
+            return false;
+        }
+        this.tasks.remove(position - 1);
+        return true;
+    }
+
     public int size() {
         return this.tasks.size();
     }
