@@ -4,9 +4,19 @@ import tom.storage.Storage;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
 
+/**
+ * Represents a command to save the task list to a file.
+ */
 public class SaveCommand extends Command {
     public SaveCommand() {}
 
+    /**
+     * Executes the command to save the task list to a file.
+     *
+     * @param tasks The task list.
+     * @param ui The UI for interacting with the user.
+     * @param storage The storage for saving tasks.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (storage.saveFile(tasks)) {
@@ -14,6 +24,11 @@ public class SaveCommand extends Command {
         }
     };
 
+    /**
+     * Indicates whether this command exits the application.
+     *
+     * @return false as this command does not exit the application.
+     */
     @Override
     public boolean isExit() {
         return false;

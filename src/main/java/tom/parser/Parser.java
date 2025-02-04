@@ -17,20 +17,43 @@ import tom.command.ByeCommand;
 
 import tom.ui.Ui;
 
+/**
+ * Parses user input and converts it into commands.
+ */
 public class Parser {
 
     private static final String DATE_PATTERN = "^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$";
 
+    /**
+     * Converts a string to a LocalDate object.
+     *
+     * @param string The string to be converted.
+     * @return The LocalDate object.
+     * @throws IllegalArgumentException if the string does not match the date pattern.
+     */
     public static LocalDate stringToDate(String string) throws IllegalArgumentException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return LocalDate.parse(string, formatter);
     }
 
+    /**
+     * Converts a LocalDate object to a string.
+     *
+     * @param date The LocalDate object to be converted.
+     * @return The string representation of the date.
+     */
     public static String dateToString(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
         return date.format(formatter);
     }
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param commandHead The user input.
+     * @param ui The UI for interacting with the user.
+     * @return The corresponding command.
+     */
     public static Command parse(String commandHead, Ui ui) {
         String[] inputComponents = commandHead.split(" ", 2);
 
@@ -45,45 +68,27 @@ public class Parser {
         case "deadline": {
             ui.showMessage("Provide task description: ");
             String description = ui.readPattern("\\w+");
-            ui.showMessage("Provide task end time: ");
-            String endString = ui.readPattern(DATE_PATTERN);
-            LocalDate end = stringToDate(endString);
-            return new DeadlineCommand(description, end);
+            ui.showMessage("Provide end date (yyyy-MM-dd): ");
+            String endDate = ui.readPattern(DATE_PATTERN);
+            return new DeadlineCommand(description, stringToDate(endDate));
         }
         case "event": {
             ui.showMessage("Provide task description: ");
             String description = ui.readPattern("\\w+");
-            ui.showMessage("Provide task start time: ");
-            String startString = ui.readPattern(DATE_PATTERN);
-            LocalDate start = stringToDate(startString);
-            ui.showMessage("Provide task end time: ");
-            String endString = ui.readPattern(DATE_PATTERN);
-            LocalDate end = stringToDate(endString);
-            return new EventCommand(description, start, end);
+            ui.showMessage("Provide start date (yyyy-MM-dd): ");
+            String startDate = ui.readPattern(DATE_PATTERN);
+            ui.showMessage("Provide end date (yyyy-MM-dd): ");
+            String endDate = ui.readPattern(DATE_PATTERN);
+            return new EventCommand(description, stringToDate(startDate), stringToDate(endDate));
         }
         case "list":
             return new ListCommand();
-        case "mark": {
-            ui.showMessage("Indicate which item: ");
-            String num = ui.readPattern("\\d+");
-            // due to regex, we know that num is a number
-            Integer position = Integer.parseInt(num);
-            return new MarkCommand(position);
-        }
-        case "unmark": {
-            ui.showMessage("Indicate which item: ");
-            String num = ui.readPattern("\\d+");
-            // due to regex, we know that num is a number
-            Integer position = Integer.parseInt(num);
-            return new UnmarkCommand(position);
-        }
-        case "delete": {
-            ui.showMessage("Indicate which item: ");
-            String num = ui.readPattern("\\d+");
-            // due to regex, we know that num is a number
-            Integer position = Integer.parseInt(num);
-            return new DeleteCommand(position);
-        }
+        case "mark":
+            return new MarkCommand(Integer.parseInt(inputComponents[1]));
+        case "unmark":
+            return new UnmarkCommand(Integer.parseInt(inputComponents[1]));
+        case "delete":
+            return new DeleteCommand(Integer.parseInt(inputComponents[1]));
         case "save":
             return new SaveCommand();
         default:
