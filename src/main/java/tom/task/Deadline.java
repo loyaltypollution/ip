@@ -1,10 +1,14 @@
 package tom.task;
 
+import java.time.LocalDate;
+
+import tom.parser.Parser;
+
 public class Deadline extends Task {
     
-    protected String end;
+    protected LocalDate end;
 
-    public Deadline(String description, String end) {
+    public Deadline(String description, LocalDate end) {
         super(description);
         this.end = end;
     }
@@ -16,6 +20,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.end);
+        String endString = Parser.dateToString(this.end);
+        return String.format("[D]%s (by: %s)", super.toString(), endString);
     }
 }
