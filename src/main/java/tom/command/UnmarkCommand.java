@@ -5,7 +5,9 @@ import tom.tasklist.TaskList;
 import tom.ui.Ui;
 
 public class UnmarkCommand extends Command {
+    
     private int position;
+
     public UnmarkCommand(int position) {
         this.position = position;
     }

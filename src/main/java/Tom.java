@@ -15,9 +15,9 @@ public class Tom {
     }
 
     public Tom(String filePath) {
-        this.ui = new Ui();
-        this.storage = new Storage(filePath);
-        this.tasks = new TaskList();
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList();
     }
 
     public static void main(String[] args) {

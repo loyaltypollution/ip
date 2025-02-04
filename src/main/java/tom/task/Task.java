@@ -6,7 +6,7 @@ public class Task {
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
     }
 
     public String getStatusIcon() {
@@ -18,23 +18,23 @@ public class Task {
     }
 
     public boolean markDone() {
-        boolean res = !this.isDone;
-        this.isDone = true;
+        boolean res = !isDone;
+        isDone = true;
         return res;
     }
 
     public boolean markUndone() {
-        boolean res = this.isDone;
-        this.isDone = false;
+        boolean res = isDone;
+        isDone = false;
         return res;
     }
 
     public String toFileFormatString() {
-        return String.format("_ | %s | %s", this.getStatusIcon(), this.getDescription());
+        return String.format("_ | %s | %s", getStatusIcon(), getDescription());
     }
 
     @Override
     public String toString() {
-        return String.format("[%s] %s",  this.getStatusIcon(), this.getDescription());
+        return String.format("[%s] %s",  getStatusIcon(), getDescription());
     }
 }

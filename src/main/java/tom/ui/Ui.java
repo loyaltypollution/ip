@@ -6,7 +6,7 @@ public class Ui {
     private Scanner scanner;
 
     public Ui() {
-        this.scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
     }
 
     public String readCommand() {
@@ -16,7 +16,7 @@ public class Ui {
     public String readPattern(String pattern) {
         String inp = scanner.nextLine();
         while (!inp.matches(pattern)) {
-            this.showMessage("Invalid format!");
+            showMessage("Invalid format!");
             inp = scanner.nextLine();
         }
         return inp;
@@ -34,7 +34,7 @@ public class Ui {
                 + "  |____| \\____/|__|_|  /\n"
                 + "                     \\/ ";
         String msg = String.format("Hello from\n%s\nWhat can I do for you?", logo);
-        this.showMessage(msg);
+        showMessage(msg);
     }
 
     public void showMessage(String msg, Object ...args) {

@@ -17,13 +17,13 @@ public class Event extends Task{
 
     @Override
     public String toFileFormatString() {
-        return String.format("E | %s | %s", this.getStatusIcon(), this.getDescription());
+        return String.format("E | %s | %s", getStatusIcon(), getDescription());
     }
 
     @Override
     public String toString() {
-        String startString = Parser.dateToString(this.start);
-        String endString = Parser.dateToString(this.end);
+        String startString = Parser.dateToString(start);
+        String endString = Parser.dateToString(end);
         return String.format("[E]%s (from: %s to: %s)", super.toString(), startString, endString);
     }
 }

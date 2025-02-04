@@ -10,7 +10,7 @@ public class TaskList implements Iterable<Task> {
     private ArrayList<Task> tasks;
 
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        tasks = new ArrayList<Task>();
     }
     
     @Override
@@ -19,33 +19,33 @@ public class TaskList implements Iterable<Task> {
     }
 
     public void addTask(Task task) {
-        this.tasks.add(task);
+        tasks.add(task);
     }
 
     public boolean removeTask(int position) {
-        if (0 >= position || position > this.tasks.size()) {
+        if (0 >= position || position > tasks.size()) {
             return false;
         }
-        this.tasks.remove(position - 1);
+        tasks.remove(position - 1);
         return true;
     }
 
     public int size() {
-        return this.tasks.size();
+        return tasks.size();
     }
 
     public void printTaskList(Ui ui) {
         int counter = 1;
-        for (Task task : this.tasks) {
+        for (Task task : tasks) {
             ui.showMessage(" %d %s", counter++, task);
         }
     }
 
     public boolean markTask(int position, boolean done) {
-        if (0 >= position || position > this.tasks.size()) {
+        if (0 >= position || position > tasks.size()) {
             return false;
         }
-        Task task = this.tasks.get(position - 1);
+        Task task = tasks.get(position - 1);
         if (done) {
             return task.markDone();
         }

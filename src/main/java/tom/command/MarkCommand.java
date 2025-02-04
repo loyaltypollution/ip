@@ -5,7 +5,9 @@ import tom.tasklist.TaskList;
 import tom.ui.Ui;
 
 public class MarkCommand extends Command {
+    
     private int position;
+
     public MarkCommand(int position) {
         this.position = position;
     }
