@@ -3,11 +3,6 @@ import tom.command.Command;
 import tom.storage.Storage;
 import tom.ui.Ui;
 
-import tom.task.Task;
-import tom.task.Deadline;
-import tom.task.Event;
-import tom.task.Todo;
-
 public class Tom {
 
     private Storage storage;
