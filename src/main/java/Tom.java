@@ -33,7 +33,7 @@ public class Tom {
 
         boolean isExit = false;
         while (!isExit) {
-            String commandHead = ui.readLine();
+            String commandHead = ui.readCommand();
             Command c = Parser.parse(commandHead, ui);
             c.execute(tasks, ui, storage);
             isExit = c.isExit();

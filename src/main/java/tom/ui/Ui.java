@@ -3,18 +3,27 @@ package tom.ui;
 import java.util.Scanner;
 
 public class Ui {
-    Scanner inputBuffer;
+    private Scanner scanner;
 
     public Ui() {
-        this.inputBuffer = new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
     }
 
-    public String readLine() {
-        return inputBuffer.nextLine();
+    public String readCommand() {
+        return scanner.nextLine();
+    }
+
+    public String readPattern(String pattern) {
+        String inp = scanner.nextLine();
+        while (!inp.matches(pattern)) {
+            this.showMessage("Invalid format!");
+            inp = scanner.nextLine();
+        }
+        return inp;
     }
 
     public void closeBuffer() {
-        inputBuffer.close();
+        scanner.close();
     }
 
     public void showWelcome() {

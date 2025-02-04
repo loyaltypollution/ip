@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import tom.task.Task;
+import tom.tasklist.TaskList;
 
 public class Storage {
     private String filePath;
@@ -14,7 +15,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public void saveFile() {
+    public boolean saveFile(TaskList tasks) {
         try {
             File file = new File(filePath);
             file.getParentFile().mkdirs();
@@ -24,11 +25,15 @@ public class Storage {
 
             BufferedWriter taskWriter = new BufferedWriter(new FileWriter(filePath));
             String tasksText = "";
+            for (Task task : tasks) {
+                tasksText += task.toFileFormatString();
+            }
             taskWriter.write(tasksText);
             taskWriter.close();
         } catch (IOException e) {
             System.out.println("Error caught with message: " + e.getMessage());
+            return false;
         }
-        System.out.println("Successfully saved file to " + filePath);
+        return true;
     }
 }
