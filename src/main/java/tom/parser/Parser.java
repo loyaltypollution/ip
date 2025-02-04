@@ -21,7 +21,7 @@ public class Parser {
 
     private static final String DATE_PATTERN = "^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$";
 
-    public static LocalDate stringToDate(String string) {
+    public static LocalDate stringToDate(String string) throws IllegalArgumentException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return LocalDate.parse(string, formatter);
     }
