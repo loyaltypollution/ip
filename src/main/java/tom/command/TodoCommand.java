@@ -6,14 +6,29 @@ import tom.ui.Ui;
 
 import tom.task.Todo;
 
+/**
+ * Represents a command to add a todo task to the task list.
+ */
 public class TodoCommand extends Command {
 
     private String description;
 
+    /**
+     * Constructs a TodoCommand with the specified description.
+     *
+     * @param description The description of the task.
+     */
     public TodoCommand(String description) {
         this.description = description;
     }
 
+    /**
+     * Executes the command to add a todo task to the task list.
+     *
+     * @param tasks The task list.
+     * @param ui The UI for interacting with the user.
+     * @param storage The storage for saving tasks.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Todo task = new Todo(description);
@@ -21,6 +36,11 @@ public class TodoCommand extends Command {
         ui.showMessage("added %s to tasklist (current size: %d)", task, tasks.size());
     };
 
+    /**
+     * Indicates whether this command exits the application.
+     *
+     * @return false as this command does not exit the application.
+     */
     @Override
     public boolean isExit() {
         return false;

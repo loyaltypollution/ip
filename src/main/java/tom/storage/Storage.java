@@ -8,13 +8,27 @@ import java.io.IOException;
 import tom.task.Task;
 import tom.tasklist.TaskList;
 
+/**
+ * Handles the storage of tasks to a file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath The file path for storing tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the tasks to the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @return true if the tasks were saved successfully, false otherwise.
+     */
     public boolean saveFile(TaskList tasks) {
         try {
             File file = new File(filePath);
