@@ -25,9 +25,9 @@ public class Tom {
      * @param filePath The file path for storing tasks.
      */
     public Tom(String filePath) {
-        this.ui = new Ui();
-        this.storage = new Storage(filePath);
-        this.tasks = new TaskList();
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList();
     }
 
     /**

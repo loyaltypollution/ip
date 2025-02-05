@@ -16,7 +16,7 @@ public class TaskList implements Iterable<Task> {
      * Constructs an empty TaskList.
      */
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        tasks = new ArrayList<Task>();
     }
     
     /**
@@ -35,7 +35,7 @@ public class TaskList implements Iterable<Task> {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
-        this.tasks.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -45,10 +45,10 @@ public class TaskList implements Iterable<Task> {
      * @return true if the task was removed successfully, false otherwise.
      */
     public boolean removeTask(int position) {
-        if (0 >= position || position > this.tasks.size()) {
+        if (0 >= position || position > tasks.size()) {
             return false;
         }
-        this.tasks.remove(position - 1);
+        tasks.remove(position - 1);
         return true;
     }
 
@@ -58,7 +58,7 @@ public class TaskList implements Iterable<Task> {
      * @return The number of tasks in the list.
      */
     public int size() {
-        return this.tasks.size();
+        return tasks.size();
     }
 
     /**
@@ -68,7 +68,7 @@ public class TaskList implements Iterable<Task> {
      */
     public void printTaskList(Ui ui) {
         int counter = 1;
-        for (Task task : this.tasks) {
+        for (Task task : tasks) {
             ui.showMessage(" %d %s", counter++, task);
         }
     }
@@ -81,10 +81,10 @@ public class TaskList implements Iterable<Task> {
      * @return true if the task was marked successfully, false otherwise.
      */
     public boolean markTask(int position, boolean done) {
-        if (0 >= position || position > this.tasks.size()) {
+        if (0 >= position || position > tasks.size()) {
             return false;
         }
-        Task task = this.tasks.get(position - 1);
+        Task task = tasks.get(position - 1);
         if (done) {
             return task.markDone();
         }
