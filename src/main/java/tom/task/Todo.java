@@ -4,7 +4,6 @@ package tom.task;
  * Represents an todo task.
  */
 public class Todo extends Task {
-    
     /**
      * Constructs an Todo task with the specified description.
      *
@@ -23,7 +22,7 @@ public class Todo extends Task {
     public String toFileFormatString() {
         return String.format("T | %s | %s", getStatusIcon(), getDescription());
     }
-    
+
     /**
      * Returns a string representation of the task.
      *

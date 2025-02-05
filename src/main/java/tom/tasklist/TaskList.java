@@ -18,14 +18,14 @@ public class TaskList implements Iterable<Task> {
     public TaskList() {
         tasks = new ArrayList<Task>();
     }
-    
+
     /**
      * Returns an iterator over the tasks in this list.
      *
      * @return An iterator over the tasks in this list.
      */
     @Override
-    public Iterator<Task> iterator(){
+    public Iterator<Task> iterator() {
         return tasks.iterator();
     }
 
@@ -61,6 +61,13 @@ public class TaskList implements Iterable<Task> {
         return this.tasks.size();
     }
 
+    /**
+     * Finds and returns a new TaskList containing tasks that match the specified
+     * keyword.
+     *
+     * @param keyword The keyword to search for in the tasks.
+     * @return A new TaskList containing tasks that match the specified keyword.
+     */
     public TaskList findTasks(String keyword) {
         TaskList foundTasks = new TaskList();
         for (Task task : this.tasks) {
@@ -87,7 +94,7 @@ public class TaskList implements Iterable<Task> {
      * Marks a task as done or not done at the specified position.
      *
      * @param position The position of the task to be marked (1-based index).
-     * @param done true to mark the task as done, false to mark it as not done.
+     * @param done     true to mark the task as done, false to mark it as not done.
      * @return true if the task was marked successfully, false otherwise.
      */
     public boolean markTask(int position, boolean done) {
@@ -97,8 +104,7 @@ public class TaskList implements Iterable<Task> {
         Task task = tasks.get(position - 1);
         if (done) {
             return task.markDone();
-        }
-        else {
+        } else {
             return task.markUndone();
         }
     }

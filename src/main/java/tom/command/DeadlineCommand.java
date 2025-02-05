@@ -3,10 +3,9 @@ package tom.command;
 import java.time.LocalDate;
 
 import tom.storage.Storage;
+import tom.task.Deadline;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
-
-import tom.task.Deadline;
 
 /**
  * Represents a command to add a deadline task to the task list.

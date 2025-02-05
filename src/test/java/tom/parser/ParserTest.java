@@ -1,9 +1,10 @@
 package tom.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,17 +19,13 @@ public class ParserTest {
     @Test
     public void stringToDate_invalidStringFormat_exceptionThrown() {
         // parsing date with invalid "yyyy-MM-dd" format
-        try {
+        assertThrows(DateTimeParseException.class, () -> {
             Parser.stringToDate("2000-Jan-01");
-            fail(); // the test should not reach this line
-        } catch (Exception e) {
-        }
+        });
 
         // parsing date with out of range month
-        try {
+        assertThrows(DateTimeParseException.class, () -> {
             Parser.stringToDate("2000-13-01");
-            fail(); // the test should not reach this line
-        } catch (Exception e) {
-        }
+        });
     }
 }

@@ -1,13 +1,13 @@
 package tom.task;
 
-import tom.parser.Parser;
 import java.time.LocalDate;
+
+import tom.parser.Parser;
 
 /**
  * Represents an deadline task with a end date.
  */
 public class Deadline extends Task {
-    
     protected LocalDate end;
 
     /**
