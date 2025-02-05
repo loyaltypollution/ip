@@ -23,6 +23,10 @@ public class Task {
         return res;
     }
 
+    public boolean matchKeyword(String keyword) {
+        return description.contains(keyword);
+    }
+
     public boolean markUndone() {
         boolean res = this.isDone;
         this.isDone = false;

@@ -34,6 +34,16 @@ public class TaskList implements Iterable<Task> {
         return this.tasks.size();
     }
 
+    public TaskList findTasks(String keyword) {
+        TaskList foundTasks = new TaskList();
+        for (Task task : this.tasks) {
+            if (task.matchKeyword(keyword)) {
+                foundTasks.addTask(task);
+            }
+        }
+        return foundTasks;
+    }
+
     public void printTaskList(Ui ui) {
         int counter = 1;
         for (Task task : this.tasks) {

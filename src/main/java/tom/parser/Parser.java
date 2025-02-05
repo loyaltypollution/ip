@@ -14,6 +14,7 @@ import tom.command.EventCommand;
 import tom.command.UnknownCommand;
 import tom.command.DeleteCommand;
 import tom.command.ByeCommand;
+import tom.command.FindCommand;
 
 import tom.ui.Ui;
 
@@ -87,6 +88,11 @@ public class Parser {
         }
         case "save":
             return new SaveCommand();
+        case "find": {
+            ui.showMessage("Provide task keyword: ");
+            String keyword = ui.readPattern("\\w+");
+            return new FindCommand(keyword);
+        }
         default:
             return new UnknownCommand();
         }
