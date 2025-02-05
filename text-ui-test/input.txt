@@ -1,14 +1,30 @@
-todo borrow book
+todo
+borrow book
+todo
+read book
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-deadline do homework /by no idea :-p
-mark 1
-delete 2
-list
-mark 0
-list
-unmark 1
+deadline
+return book
+Sunday
+2000-01-01
+event
+project meeting
+2000-01-01
+2000-01-31
+deadline
+do homework
+no idea :-p
+2000-12-31
+mark
+1
+find
+book
+delete
+2
+mark
+0
+unmark
+1
 list
 save
 bye
