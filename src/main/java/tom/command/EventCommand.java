@@ -3,10 +3,9 @@ package tom.command;
 import java.time.LocalDate;
 
 import tom.storage.Storage;
+import tom.task.Event;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
-
-import tom.task.Event;
 
 /**
  * Represents a command to add an event task to the task list.

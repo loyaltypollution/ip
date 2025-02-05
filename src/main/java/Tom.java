@@ -1,7 +1,7 @@
-import tom.tasklist.TaskList;
 import tom.command.Command;
 import tom.parser.Parser;
 import tom.storage.Storage;
+import tom.tasklist.TaskList;
 import tom.ui.Ui;
 
 /**
@@ -52,5 +52,5 @@ public class Tom {
             c.execute(tasks, ui, storage);
             isExit = c.isExit();
         }
-    }    
+    }
 }

@@ -8,7 +8,6 @@ import tom.parser.Parser;
  * Represents an event task with a start and end date.
  */
 public class Event extends Task {
-    
     protected LocalDate start;
     protected LocalDate end;
 

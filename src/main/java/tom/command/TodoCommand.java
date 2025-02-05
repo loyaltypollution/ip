@@ -1,10 +1,9 @@
 package tom.command;
 
 import tom.storage.Storage;
+import tom.task.Todo;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
-
-import tom.task.Todo;
 
 /**
  * Represents a command to add a todo task to the task list.

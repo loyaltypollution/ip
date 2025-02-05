@@ -12,7 +12,7 @@ public class TodoTest {
         // non-marked tasks should have empty indicator
         String fileString = task.toFileFormatString();
         assertEquals("T |   | arbitrary description", fileString);
-        
+
         // marked tasks should have X indicator
         task.markDone();
         fileString = task.toFileFormatString();
@@ -26,7 +26,7 @@ public class TodoTest {
         // non-marked tasks should have empty indicator
         String fileString = task.toString();
         assertEquals("[T][ ] arbitrary description", fileString);
-        
+
         // marked tasks should have X indicator
         task.markDone();
         fileString = task.toString();

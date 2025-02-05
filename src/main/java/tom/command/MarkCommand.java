@@ -8,9 +8,8 @@ import tom.ui.Ui;
  * Represents a command to mark a task as done in the task list.
  */
 public class MarkCommand extends Command {
-    
-    private int position;
 
+    private int position;
 
     /**
      * Constructs a MarkCommand with the specified position.
@@ -32,8 +31,7 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.markTask(position, true)) {
             ui.showMessage("marked in tasklist");
-        }
-        else {
+        } else {
             ui.showMessage("unable to mark");
         }
     };

@@ -1,14 +1,15 @@
 package tom.tasklist;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import tom.task.Task;
 import tom.task.Todo;
 import tom.ui.Ui;
-
 
 public class TaskListTest {
     private TaskList taskList;

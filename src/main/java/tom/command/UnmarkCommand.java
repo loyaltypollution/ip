@@ -8,7 +8,7 @@ import tom.ui.Ui;
  * Represents a command to unmark a task as done in the task list.
  */
 public class UnmarkCommand extends Command {
-    
+
     private int position;
 
 
@@ -30,10 +30,9 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        if (tasks.markTask(position,false)) {
+        if (tasks.markTask(position, false)) {
             ui.showMessage("unmarked in tasklist");
-        }
-        else {
+        } else {
             ui.showMessage("unable to unmark");
         }
     };
