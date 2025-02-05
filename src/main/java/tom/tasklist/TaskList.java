@@ -58,7 +58,17 @@ public class TaskList implements Iterable<Task> {
      * @return The number of tasks in the list.
      */
     public int size() {
-        return tasks.size();
+        return this.tasks.size();
+    }
+
+    public TaskList findTasks(String keyword) {
+        TaskList foundTasks = new TaskList();
+        for (Task task : this.tasks) {
+            if (task.matchKeyword(keyword)) {
+                foundTasks.addTask(task);
+            }
+        }
+        return foundTasks;
     }
 
     /**

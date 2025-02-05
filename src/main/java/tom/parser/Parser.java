@@ -14,6 +14,7 @@ import tom.command.EventCommand;
 import tom.command.UnknownCommand;
 import tom.command.DeleteCommand;
 import tom.command.ByeCommand;
+import tom.command.FindCommand;
 
 import tom.ui.Ui;
 
@@ -23,6 +24,7 @@ import tom.ui.Ui;
 public class Parser {
 
     private static final String DATE_PATTERN = "^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$";
+    private static final String WORD_PATTERN = "^\\w+( +\\w+)*$";
 
     /**
      * Converts a string to a LocalDate object.
@@ -62,19 +64,19 @@ public class Parser {
             return new ByeCommand();
         case "todo": {
             ui.showMessage("Provide task description: ");
-            String description = ui.readPattern("\\w+");
+            String description = ui.readPattern(WORD_PATTERN);
             return new TodoCommand(description);
         }
         case "deadline": {
             ui.showMessage("Provide task description: ");
-            String description = ui.readPattern("\\w+");
+            String description = ui.readPattern(WORD_PATTERN);
             ui.showMessage("Provide end date (yyyy-MM-dd): ");
             String endDate = ui.readPattern(DATE_PATTERN);
             return new DeadlineCommand(description, stringToDate(endDate));
         }
         case "event": {
             ui.showMessage("Provide task description: ");
-            String description = ui.readPattern("\\w+");
+            String description = ui.readPattern(WORD_PATTERN);
             ui.showMessage("Provide start date (yyyy-MM-dd): ");
             String startDate = ui.readPattern(DATE_PATTERN);
             ui.showMessage("Provide end date (yyyy-MM-dd): ");
@@ -91,6 +93,11 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(inputComponents[1]));
         case "save":
             return new SaveCommand();
+        case "find": {
+            ui.showMessage("Provide task keyword: ");
+            String keyword = ui.readPattern("\\w+");
+            return new FindCommand(keyword);
+        }
         default:
             return new UnknownCommand();
         }
