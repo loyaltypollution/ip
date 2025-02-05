@@ -20,6 +20,7 @@ import tom.ui.Ui;
 public class Parser {
 
     private static final String DATE_PATTERN = "^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$";
+    private static final String WORD_PATTERN = "^\\w+( +\\w+)*$";
 
     public static LocalDate stringToDate(String string) throws IllegalArgumentException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -39,12 +40,12 @@ public class Parser {
             return new ByeCommand();
         case "todo": {
             ui.showMessage("Provide task description: ");
-            String description = ui.readPattern("\\w+");
+            String description = ui.readPattern(WORD_PATTERN);
             return new TodoCommand(description);
         }
         case "deadline": {
             ui.showMessage("Provide task description: ");
-            String description = ui.readPattern("\\w+");
+            String description = ui.readPattern(WORD_PATTERN);
             ui.showMessage("Provide task end time: ");
             String endString = ui.readPattern(DATE_PATTERN);
             LocalDate end = stringToDate(endString);
@@ -52,7 +53,7 @@ public class Parser {
         }
         case "event": {
             ui.showMessage("Provide task description: ");
-            String description = ui.readPattern("\\w+");
+            String description = ui.readPattern(WORD_PATTERN);
             ui.showMessage("Provide task start time: ");
             String startString = ui.readPattern(DATE_PATTERN);
             LocalDate start = stringToDate(startString);
