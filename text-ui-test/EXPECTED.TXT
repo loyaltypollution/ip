@@ -13,29 +13,25 @@ added [T][ ] read book to tasklist (current size: 2)
  1 [T][ ] borrow book
  2 [T][ ] read book
 Provide task description: 
-Provide task end time: 
+Provide end date (yyyy-MM-dd): 
 Invalid format!
 added [D][ ] return book (by: Jan 1 2000) to tasklist (current size: 3)
 Provide task description: 
-Provide task start time: 
-Provide task end time: 
+Provide start date (yyyy-MM-dd): 
+Provide end date (yyyy-MM-dd): 
 added [E][ ] project meeting (from: Jan 1 2000 to: Jan 31 2000) to tasklist (current size: 4)
 Provide task description: 
-Provide task end time: 
+Provide end date (yyyy-MM-dd): 
 Invalid format!
 added [D][ ] do homework (by: Dec 31 2000) to tasklist (current size: 5)
-Indicate which item: 
 marked in tasklist
 Provide task keyword: 
 Here are the matching tasks in your list:
  1 [T][X] borrow book
  2 [T][ ] read book
  3 [D][ ] return book (by: Jan 1 2000)
-Indicate which item: 
 deleted from tasklist
-Indicate which item: 
 unable to mark
-Indicate which item: 
 unmarked in tasklist
  1 [T][ ] borrow book
  2 [D][ ] return book (by: Jan 1 2000)

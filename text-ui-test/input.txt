@@ -15,16 +15,12 @@ deadline
 do homework
 no idea :-p
 2000-12-31
-mark
-1
+mark 1
 find
 book
-delete
-2
-mark
-0
-unmark
-1
+delete 2
+mark 0
+unmark 1
 list
 save
 bye
