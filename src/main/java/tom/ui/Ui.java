@@ -38,6 +38,7 @@ public class Ui {
     }
 
     public void showMessage(String msg, Object ...args) {
+        // Format the message with the variadic arguments
         String outputMsg = String.format(msg, args);
         System.out.println(outputMsg);
     }
