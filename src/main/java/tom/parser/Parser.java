@@ -37,6 +37,8 @@ public class Parser {
      *                                  pattern.
      */
     public static LocalDate stringToDate(String string) throws IllegalArgumentException {
+        assert string != null : "Input string should not be null";
+        assert string.matches(DATE_PATTERN) : "Input string should match the date pattern";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return LocalDate.parse(string, formatter);
     }

@@ -34,6 +34,7 @@ public class TaskList implements Iterable<Task> {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Task should not be null";
         tasks.add(task);
     }
 
@@ -47,6 +48,8 @@ public class TaskList implements Iterable<Task> {
         if (!isValidPosition(position)) {
             return false;
         }
+
+        assert position > 0 && position <= tasks.size() : "Position should be within the valid range";
         tasks.remove(position - 1);
         return true;
     }
