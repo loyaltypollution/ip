@@ -8,7 +8,6 @@ import tom.ui.Ui;
  * Represents a command to save the task list to a file.
  */
 public class SaveCommand extends Command {
-    public SaveCommand() {}
 
     /**
      * Executes the command to save the task list to a file.
