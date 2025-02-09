@@ -30,27 +30,9 @@ public class Tom {
         tasks = new TaskList();
     }
 
-    /**
-     * The main method to run the Tom application.
-     *
-     * @param args Command line arguments.
-     */
-    public static void main(String[] args) {
-        new Tom().run();
-    }
-
-    /**
-     * Runs the Tom application.
-     */
-    public void run() {
-        ui.showWelcome();
-
-        boolean isExit = false;
-        while (!isExit) {
-            String commandHead = ui.readCommand();
-            Command c = Parser.parse(commandHead, ui);
-            c.execute(tasks, ui, storage);
-            isExit = c.isExit();
-        }
+    public String getResponse(String input) {
+        Command c = Parser.parse(input, ui);
+        c.execute(tasks, ui, storage);
+        return ui.flush();
     }
 }
