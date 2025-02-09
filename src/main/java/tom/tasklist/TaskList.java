@@ -44,7 +44,7 @@ public class TaskList implements Iterable<Task> {
      * @return true if the task was removed successfully, false otherwise.
      */
     public boolean removeTask(int position) {
-        if (0 >= position || position > tasks.size()) {
+        if (!isValidPosition(position)) {
             return false;
         }
         tasks.remove(position - 1);
@@ -100,7 +100,7 @@ public class TaskList implements Iterable<Task> {
      * @return true if the task was marked successfully, false otherwise.
      */
     public boolean markTask(int position, boolean done) {
-        if (0 >= position || position > tasks.size()) {
+        if (!isValidPosition(position)) {
             return false;
         }
         Task task = tasks.get(position - 1);
@@ -109,5 +109,15 @@ public class TaskList implements Iterable<Task> {
         } else {
             return task.markUndone();
         }
+    }
+
+    /**
+     * Checks if the given position is valid within the task list.
+     *
+     * @param position The position to check (1-based index).
+     * @return true if the position is valid, false otherwise.
+     */
+    private boolean isValidPosition(int position) {
+        return 0 < position && position <= tasks.size();
     }
 }
