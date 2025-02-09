@@ -1,5 +1,7 @@
 package tom.task;
 
+import tom.parser.WordMatch;
+
 /**
  * Represents a task with a description and a status indicating whether it is done.
  */
@@ -53,7 +55,14 @@ public class Task {
      * @return true if the keyword is found in the description, false otherwise.
      */
     public boolean matchKeyword(String keyword) {
-        return description.contains(keyword);
+        int threshold = 2; // Maximum allowed edit distance
+    
+        for (String word : description.split("\\s+")) {
+            if (WordMatch.LevenshteinDistance(word.toLowerCase(), keyword.toLowerCase()) <= threshold) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
