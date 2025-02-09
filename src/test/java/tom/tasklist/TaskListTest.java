@@ -73,6 +73,11 @@ public class TaskListTest {
             public void showMessage(String format, Object... args) {
                 System.out.printf(format, args);
             }
+
+            @Override
+            public String readPattern(String pattern) {
+                return null;
+            }
         };
         taskList.printTaskList(ui);
     }
