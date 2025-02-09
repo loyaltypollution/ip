@@ -2,6 +2,7 @@ package tom.tasklist;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.stream.Collectors;
 
 import tom.task.Task;
 
@@ -9,7 +10,7 @@ import tom.task.Task;
  * Represents a list of tasks.
  */
 public class TaskList implements Iterable<Task> {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs an empty TaskList.
@@ -72,11 +73,9 @@ public class TaskList implements Iterable<Task> {
      */
     public TaskList findTasks(String keyword) {
         TaskList foundTasks = new TaskList();
-        for (Task task : this.tasks) {
-            if (task.matchKeyword(keyword)) {
-                foundTasks.addTask(task);
-            }
-        }
+        tasks.stream()
+             .filter(task -> task.matchKeyword(keyword))
+             .forEach(foundTasks::addTask);
         return foundTasks;
     }
 
