@@ -14,6 +14,7 @@ public class Ui {
      * @param args The arguments to be formatted into the message.
      */
     public void showMessage(String msg, Object ...args) {
+        assert msg != null : "Message should not be null";
         // Format the message with the variadic arguments
         String outputMsg = String.format(msg, args);
         internalBuffer += outputMsg + "\n";
