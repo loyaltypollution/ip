@@ -86,12 +86,9 @@ public class TaskList implements Iterable<Task> {
      */
     @Override
     public String toString() {
-        String result = "";
-        int itemCount = 1;
-        for (Task task : tasks) {
-            result += String.format(" %d %s\n", itemCount++, task);
-        }
-        return result;
+        return tasks.stream()
+                    .map(task -> String.format(" %d %s", tasks.indexOf(task) + 1, task))
+                    .collect(Collectors.joining("\n"));
     }
 
     /**
