@@ -1,10 +1,13 @@
+package tom.ui;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import tom.Tom;
+
 /**
  * Controller for the main GUI.
  */
@@ -20,31 +23,25 @@ public class MainWindow extends AnchorPane {
 
     private Tom tom;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image tomImage = new Image(this.getClass().getResourceAsStream("/images/DaTom.png"));
-
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Tom instance */
     public void setTom(Tom d) {
         tom = d;
     }
 
-    /**
-     * Creates two dialog boxes, one echoing user input and the other containing Tom's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
+    public void addTomDialog(String msg) {
+        dialogContainer.getChildren().add(DialogBox.getTomDialog(msg));
+    }
+
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = tom.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getTomDialog(response, tomImage)
-        );
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(input));
         userInput.clear();
+        
+        tom.handleUserInput(input);
     }
 }

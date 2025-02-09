@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import tom.task.Task;
-import tom.ui.Ui;
 
 /**
  * Represents a list of tasks.
@@ -79,15 +78,18 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Prints the list of tasks using the specified UI.
+     * Returns a string representation of the task.
      *
-     * @param ui The UI to be used for printing the tasks.
+     * @return A multiline string in the format " itemCount task".
      */
-    public void printTaskList(Ui ui) {
-        int counter = 1;
+    @Override
+    public String toString() {
+        String result = "";
+        int itemCount = 1;
         for (Task task : tasks) {
-            ui.showMessage(" %d %s", counter++, task);
+            result += String.format(" %d %s\n", itemCount++, task);
         }
+        return result;
     }
 
     /**
