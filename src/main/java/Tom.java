@@ -1,8 +1,3 @@
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-
 import tom.command.Command;
 import tom.parser.Parser;
 import tom.storage.Storage;
@@ -12,7 +7,7 @@ import tom.ui.Ui;
 /**
  * The main class for the Tom application.
  */
-public class Tom extends Application {
+public class Tom {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
@@ -35,36 +30,9 @@ public class Tom extends Application {
         tasks = new TaskList();
     }
 
-    /**
-     * The main method to run the Tom application.
-     *
-     * @param args Command line arguments.
-     */
-    public static void main(String[] args) {
-        new Tom().run();
-    }
-
-    @Override
-    public void start(Stage stage) {
-        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
-        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
-
-        stage.setScene(scene); // Setting the stage to show our scene
-        stage.show(); // Render the stage.
-    }
-
-    /**
-     * Runs the Tom application.
-     */
-    public void run() {
-        ui.showWelcome();
-
-        boolean isExit = false;
-        while (!isExit) {
-            String commandHead = ui.readCommand();
-            Command c = Parser.parse(commandHead, ui);
-            c.execute(tasks, ui, storage);
-            isExit = c.isExit();
-        }
+    public String getResponse(String input) {
+        Command c = Parser.parse(input, ui);
+        c.execute(tasks, ui, storage);
+        return ui.flush();
     }
 }

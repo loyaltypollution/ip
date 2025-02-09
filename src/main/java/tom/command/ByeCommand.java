@@ -1,5 +1,9 @@
 package tom.command;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import tom.storage.Storage;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
@@ -14,14 +18,20 @@ public class ByeCommand extends Command {
     /**
      * Executes the command to exit the application.
      *
-     * @param tasks The task list.
-     * @param ui The UI for interacting with the user.
+     * @param tasks   The task list.
+     * @param ui      The UI for interacting with the user.
      * @param storage The storage for saving tasks.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMessage("Bye. Hope to see you again soon!");
-        ui.closeBuffer();
+        ui.showMessage("Exiting in a few seconds. Hope to see you again soon!");
+        ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
+        exec.schedule(new Runnable() {
+            @Override
+            public void run() {
+                javafx.application.Platform.exit();
+            }
+        }, 3, TimeUnit.SECONDS);
     };
 
     /**
