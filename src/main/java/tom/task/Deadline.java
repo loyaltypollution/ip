@@ -18,6 +18,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDate end) {
         super(description);
+        assert description != null : "Description should not be null";
+        assert end != null : "End date should not be null";
         this.end = end;
     }
 
