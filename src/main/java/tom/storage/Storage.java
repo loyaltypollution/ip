@@ -30,6 +30,7 @@ public class Storage {
      * @return true if the tasks were saved successfully, false otherwise.
      */
     public boolean saveFile(TaskList tasks) {
+        assert tasks != null : "Task list should not be null";
         try {
             File file = new File(filePath);
             file.getParentFile().mkdirs();
