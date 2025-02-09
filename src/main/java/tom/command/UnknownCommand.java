@@ -9,9 +9,6 @@ import tom.ui.Ui;
  */
 public class UnknownCommand extends Command {
 
-    public UnknownCommand() {
-    }
-
     /**
      * Executes the command to notify the user that the command is not recognized.
      *

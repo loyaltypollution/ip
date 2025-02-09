@@ -1,3 +1,5 @@
+package tom.ui;
+
 import java.io.IOException;
 import java.util.Collections;
 
@@ -21,6 +23,9 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+
+    private static final Image userImage = new Image(DialogBox.class.getResourceAsStream("/images/DaUser.png"));
+    private static final Image tomImage = new Image(DialogBox.class.getResourceAsStream("/images/DaTom.png"));
 
     private DialogBox(String text, Image img) {
         try {
@@ -46,12 +51,12 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+    public static DialogBox getUserDialog(String text) {
+        return new DialogBox(text, userImage);
     }
 
-    public static DialogBox getTomDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getTomDialog(String text) {
+        var db = new DialogBox(text, tomImage);
         db.flip();
         return db;
     }

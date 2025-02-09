@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import tom.task.Task;
 import tom.task.Todo;
-import tom.ui.Ui;
 
 public class TaskListTest {
     private TaskList taskList;
@@ -62,18 +61,5 @@ public class TaskListTest {
         taskList.markTask(1, true);
         assertTrue(taskList.markTask(1, false));
         assertEquals(" ", task1.getStatusIcon());
-    }
-
-    @Test
-    public void printTaskList_printsCorrectly() {
-        taskList.addTask(task1);
-        taskList.addTask(task2);
-        Ui ui = new Ui() {
-            @Override
-            public void showMessage(String format, Object... args) {
-                System.out.printf(format, args);
-            }
-        };
-        taskList.printTaskList(ui);
     }
 }

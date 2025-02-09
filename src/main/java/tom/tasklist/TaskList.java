@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.stream.Collectors;
 
 import tom.task.Task;
-import tom.ui.Ui;
 
 /**
  * Represents a list of tasks.
@@ -47,7 +46,7 @@ public class TaskList implements Iterable<Task> {
      * @return true if the task was removed successfully, false otherwise.
      */
     public boolean removeTask(int position) {
-        if (0 >= position || position > tasks.size()) {
+        if (!isValidPosition(position)) {
             return false;
         }
 
@@ -81,14 +80,15 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Prints the list of tasks using the specified UI.
+     * Returns a string representation of the task.
      *
-     * @param ui The UI to be used for printing the tasks.
+     * @return A multiline string in the format " itemCount task".
      */
-    public void printTaskList(Ui ui) {
-        tasks.stream()
-             .map(task -> String.format(" %d %s", tasks.indexOf(task) + 1, task))
-             .forEach(ui::showMessage);
+    @Override
+    public String toString() {
+        return tasks.stream()
+                    .map(task -> String.format(" %d %s", tasks.indexOf(task) + 1, task))
+                    .collect(Collectors.joining("\n"));
     }
 
     /**
@@ -99,7 +99,7 @@ public class TaskList implements Iterable<Task> {
      * @return true if the task was marked successfully, false otherwise.
      */
     public boolean markTask(int position, boolean done) {
-        if (0 >= position || position > tasks.size()) {
+        if (!isValidPosition(position)) {
             return false;
         }
         Task task = tasks.get(position - 1);
@@ -108,5 +108,15 @@ public class TaskList implements Iterable<Task> {
         } else {
             return task.markUndone();
         }
+    }
+
+    /**
+     * Checks if the given position is valid within the task list.
+     *
+     * @param position The position to check (1-based index).
+     * @return true if the position is valid, false otherwise.
+     */
+    private boolean isValidPosition(int position) {
+        return 0 < position && position <= tasks.size();
     }
 }

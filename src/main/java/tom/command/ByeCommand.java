@@ -12,8 +12,8 @@ import tom.ui.Ui;
  * Represents a command to exit the application.
  */
 public class ByeCommand extends Command {
-    public ByeCommand() {
-    }
+
+    private static final int BYE_TIMEOUT = 3;
 
     /**
      * Executes the command to exit the application.
@@ -24,14 +24,17 @@ public class ByeCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        // Display goodbye message to user.
         ui.showMessage("Exiting in a few seconds. Hope to see you again soon!");
+
+        // Close the JavaFx application after a few seconds.
         ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
         exec.schedule(new Runnable() {
             @Override
             public void run() {
                 javafx.application.Platform.exit();
             }
-        }, 3, TimeUnit.SECONDS);
+        }, BYE_TIMEOUT, TimeUnit.SECONDS);
     };
 
     /**

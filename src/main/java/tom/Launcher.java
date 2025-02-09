@@ -1,3 +1,5 @@
+package tom;
+
 import javafx.application.Application;
 
 /**
