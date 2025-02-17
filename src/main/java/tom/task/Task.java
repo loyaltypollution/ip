@@ -56,9 +56,9 @@ public class Task {
      */
     public boolean matchKeyword(String keyword) {
         int threshold = 2; // Maximum allowed edit distance
-    
+
         for (String word : description.split("\\s+")) {
-            if (WordMatch.LevenshteinDistance(word.toLowerCase(), keyword.toLowerCase()) <= threshold) {
+            if (WordMatch.levenshteinDistance(word.toLowerCase(), keyword.toLowerCase()) <= threshold) {
                 return true;
             }
         }

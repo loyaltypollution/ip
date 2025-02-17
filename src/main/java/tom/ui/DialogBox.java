@@ -19,13 +19,14 @@ import javafx.scene.layout.HBox;
  * and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
+
+    private static final Image userImage = new Image(DialogBox.class.getResourceAsStream("/images/DaUser.png"));
+    private static final Image tomImage = new Image(DialogBox.class.getResourceAsStream("/images/DaTom.png"));
+
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-
-    private static final Image userImage = new Image(DialogBox.class.getResourceAsStream("/images/DaUser.png"));
-    private static final Image tomImage = new Image(DialogBox.class.getResourceAsStream("/images/DaTom.png"));
 
     private DialogBox(String text, Image img) {
         try {

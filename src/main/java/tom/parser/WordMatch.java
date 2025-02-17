@@ -17,7 +17,7 @@ public class WordMatch {
      * @param s2 the second string
      * @return the Levenshtein distance between the two strings
      */
-    public static int LevenshteinDistance(String s1, String s2) {
+    public static int levenshteinDistance(String s1, String s2) {
         int[][] dp = new int[s1.length() + 1][s2.length() + 1];
 
         for (int i = 0; i <= s1.length(); i++) {
@@ -30,9 +30,9 @@ public class WordMatch {
                     dp[i][j] = dp[i - 1][j - 1]; // No operation needed
                 } else {
                     dp[i][j] = 1 + Math.min(
-                        dp[i - 1][j],        // Deletion
+                        dp[i - 1][j], // Deletion
                         Math.min(
-                            dp[i][j - 1],    // Insertion
+                            dp[i][j - 1], // Insertion
                             dp[i - 1][j - 1] // Substitution
                         )
                     );

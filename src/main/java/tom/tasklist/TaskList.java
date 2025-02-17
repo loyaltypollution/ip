@@ -2,7 +2,6 @@ package tom.tasklist;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.stream.Collectors;
 
 import tom.task.Task;
 
@@ -10,7 +9,7 @@ import tom.task.Task;
  * Represents a list of tasks.
  */
 public class TaskList implements Iterable<Task> {
-    private final ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructs an empty TaskList.
@@ -35,7 +34,6 @@ public class TaskList implements Iterable<Task> {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
-        assert task != null : "Task should not be null";
         tasks.add(task);
     }
 
@@ -49,8 +47,6 @@ public class TaskList implements Iterable<Task> {
         if (!isValidPosition(position)) {
             return false;
         }
-
-        assert position > 0 && position <= tasks.size() : "Position should be within the valid range";
         tasks.remove(position - 1);
         return true;
     }
@@ -73,9 +69,11 @@ public class TaskList implements Iterable<Task> {
      */
     public TaskList findTasks(String keyword) {
         TaskList foundTasks = new TaskList();
-        tasks.stream()
-             .filter(task -> task.matchKeyword(keyword))
-             .forEach(foundTasks::addTask);
+        for (Task task : this.tasks) {
+            if (task.matchKeyword(keyword)) {
+                foundTasks.addTask(task);
+            }
+        }
         return foundTasks;
     }
 
@@ -86,9 +84,12 @@ public class TaskList implements Iterable<Task> {
      */
     @Override
     public String toString() {
-        return tasks.stream()
-                    .map(task -> String.format(" %d %s", tasks.indexOf(task) + 1, task))
-                    .collect(Collectors.joining("\n"));
+        StringBuilder result = new StringBuilder();
+        int itemCount = 1;
+        for (Task task : tasks) {
+            result.append(String.format(" %d %s\n", itemCount++, task));
+        }
+        return result.toString();
     }
 
     /**

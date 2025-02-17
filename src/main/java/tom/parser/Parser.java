@@ -37,8 +37,6 @@ public class Parser {
      *                                  pattern.
      */
     public static LocalDate stringToDate(String string) throws IllegalArgumentException {
-        assert string != null : "Input string should not be null";
-        assert string.matches(DATE_PATTERN) : "Input string should match the date pattern";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return LocalDate.parse(string, formatter);
     }
@@ -87,8 +85,9 @@ public class Parser {
             return new DeadlineCommand(description, stringToDate(endDate));
         }
         case "event": {
+            String format = "event (%s) \\/from (%s) \\/to (%s)";
             Pattern r = Pattern
-                    .compile(String.format("event (%s) \\/from (%s) \\/to (%s)", WORD_PATTERN, DATE_PATTERN, DATE_PATTERN));
+                    .compile(String.format(format, WORD_PATTERN, DATE_PATTERN, DATE_PATTERN));
             Matcher m = r.matcher(input);
             if (!m.find()) {
                 return new UnknownCommand();

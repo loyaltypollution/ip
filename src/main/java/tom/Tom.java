@@ -32,7 +32,7 @@ public class Tom {
         storage = new Storage(filePath);
         tasks = new TaskList();
     }
-   
+
     /**
      * Handles user input by parsing and executing the corresponding command.
      *

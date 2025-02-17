@@ -41,7 +41,7 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         dialogContainer.getChildren().add(DialogBox.getUserDialog(input));
         userInput.clear();
-        
+
         tom.handleUserInput(input);
     }
 }
