@@ -32,8 +32,16 @@ public class MainWindow extends AnchorPane {
         tom = d;
     }
 
-    public void addTomDialog(String msg) {
-        dialogContainer.getChildren().add(DialogBox.getTomDialog(msg));
+    /**
+     * Adds a dialog box containing Tom's response to the dialog container.
+     *
+     * @param msg The message to be displayed in Tom's dialog box.
+     * @return The DialogBox containing Tom's response.
+     */
+    public DialogBox addTomDialog(String msg) {
+        DialogBox box = DialogBox.getTomDialog(msg);
+        dialogContainer.getChildren().add(box);
+        return box;
     }
 
     @FXML

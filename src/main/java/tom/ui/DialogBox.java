@@ -38,8 +38,12 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        dialog.setText(text);
+        setText(text);
         displayPicture.setImage(img);
+    }
+
+    public void setText(String text) {
+        dialog.setText(text);
     }
 
     /**

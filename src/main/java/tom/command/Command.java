@@ -9,6 +9,12 @@ import tom.ui.Ui;
  */
 public abstract class Command {
 
+    protected int id = 0;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 
     public abstract boolean isExit();
