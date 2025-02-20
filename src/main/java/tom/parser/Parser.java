@@ -2,31 +2,13 @@ package tom.parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import tom.command.ByeCommand;
-import tom.command.Command;
-import tom.command.DeadlineCommand;
-import tom.command.DeleteCommand;
-import tom.command.EventCommand;
-import tom.command.FindCommand;
-import tom.command.ListCommand;
-import tom.command.MarkCommand;
-import tom.command.SaveCommand;
-import tom.command.TodoCommand;
-import tom.command.UnknownCommand;
-import tom.command.UnmarkCommand;
 import tom.ui.Ui;
 
 /**
  * Parses user input and converts it into commands.
  */
 public class Parser {
-
-    private static final String DATE_PATTERN = "\\d{4}\\-(?:0?[1-9]|1[012])\\-(?:0[1-9]|[12][0-9]|3[01])";
-    private static final String WORD_PATTERN = "\\w+(?: +\\w+)*";
-    private static final String NUM_PATTERN = "\\d+";
 
     /**
      * Converts a string to a LocalDate object.
@@ -55,90 +37,48 @@ public class Parser {
     /**
      * Parses the user input and returns the corresponding command.
      *
-     * @param input The user input.
+     * @param commandType The command type.
      * @param ui    The UI for interacting with the user.
      * @return The corresponding command.
      */
-    public static Command parse(String input, Ui ui) {
-        String[] inputComponents = input.split(" ", 2);
-
-        switch (inputComponents[0]) {
+    public static CommandParser findParser(String commandType, Ui ui) {
+        CommandParser parser;
+        switch (commandType) {
         case "bye":
-            return new ByeCommand();
-        case "todo": {
-            Pattern r = Pattern.compile(String.format("todo (%s)", WORD_PATTERN));
-            Matcher m = r.matcher(input);
-            if (!m.find()) {
-                return new UnknownCommand();
-            }
-            String description = m.group(1);
-            return new TodoCommand(description);
-        }
-        case "deadline": {
-            Pattern r = Pattern.compile(String.format("deadline (%s) \\/by (%s)", WORD_PATTERN, DATE_PATTERN));
-            Matcher m = r.matcher(input);
-            if (!m.find()) {
-                return new UnknownCommand();
-            }
-            String description = m.group(1);
-            String endDate = m.group(2);
-            return new DeadlineCommand(description, stringToDate(endDate));
-        }
-        case "event": {
-            String format = "event (%s) \\/from (%s) \\/to (%s)";
-            Pattern r = Pattern
-                    .compile(String.format(format, WORD_PATTERN, DATE_PATTERN, DATE_PATTERN));
-            Matcher m = r.matcher(input);
-            if (!m.find()) {
-                return new UnknownCommand();
-            }
-            String description = m.group(1);
-            String startDate = m.group(2);
-            String endDate = m.group(3);
-            return new EventCommand(description, stringToDate(startDate), stringToDate(endDate));
-        }
+            parser = new ByeCommandParser(ui);
+            break;
+        case "todo":
+            parser = new TodoCommandParser(ui);
+            break;
+        case "deadline":
+            parser = new DeadlineCommandParser(ui);
+            break;
+        case "event":
+            parser = new EventCommandParser(ui);
+            break;
         case "list":
-            return new ListCommand();
-        case "mark": {
-            Pattern r = Pattern.compile(String.format("mark (%s)", NUM_PATTERN));
-            Matcher m = r.matcher(input);
-            if (!m.find()) {
-                return new UnknownCommand();
-            }
-            String index = m.group(1);
-            return new MarkCommand(Integer.parseInt(index));
-        }
-        case "unmark": {
-            Pattern r = Pattern.compile(String.format("unmark (%s)", NUM_PATTERN));
-            Matcher m = r.matcher(input);
-            if (!m.find()) {
-                return new UnknownCommand();
-            }
-            String index = m.group(1);
-            return new UnmarkCommand(Integer.parseInt(index));
-        }
-        case "delete": {
-            Pattern r = Pattern.compile(String.format("delete (%s)", NUM_PATTERN));
-            Matcher m = r.matcher(input);
-            if (!m.find()) {
-                return new UnknownCommand();
-            }
-            String index = m.group(1);
-            return new DeleteCommand(Integer.parseInt(index));
-        }
+            parser = new ListCommandParser(ui);
+            break;
+        case "mark":
+            parser = new MarkUnmarkCommandParser(true, ui);
+            break;
+        case "unmark":
+            parser = new MarkUnmarkCommandParser(false, ui);
+            break;
+        case "delete":
+            parser = new DeleteCommandParser(ui);
+            break;
         case "save":
-            return new SaveCommand();
-        case "find": {
-            Pattern r = Pattern.compile(String.format("find (%s)", WORD_PATTERN));
-            Matcher m = r.matcher(input);
-            if (!m.find()) {
-                return new UnknownCommand();
-            }
-            String keyword = m.group(1);
-            return new FindCommand(keyword);
-        }
+            parser = new SaveCommandParser(ui);
+            break;
+        case "find":
+            parser = new FindCommandParser(ui);
+            break;
         default:
-            return new UnknownCommand();
+            parser = new UnknownCommandParser(ui);
+            break;
         }
+
+        return parser;
     }
 }
