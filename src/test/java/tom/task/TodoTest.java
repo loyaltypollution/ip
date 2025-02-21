@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import tom.exception.TaskException;
+
 public class TodoTest {
     @Test
     public void toFileFormatString_arbitrarydescription_success() {
@@ -14,7 +16,11 @@ public class TodoTest {
         assertEquals("T |   | arbitrary description", fileString);
 
         // marked tasks should have X indicator
-        task.markDone();
+        try {
+            task.markDone();
+        } catch (TaskException e) {
+            e.printStackTrace();
+        }
         fileString = task.toFileFormatString();
         assertEquals("T | X | arbitrary description", fileString);
     }
@@ -28,7 +34,11 @@ public class TodoTest {
         assertEquals("[T][ ] arbitrary description", fileString);
 
         // marked tasks should have X indicator
-        task.markDone();
+        try {
+            task.markDone();
+        } catch (TaskException e) {
+            e.printStackTrace();
+        }
         fileString = task.toString();
         assertEquals("[T][X] arbitrary description", fileString);
     }

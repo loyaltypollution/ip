@@ -3,6 +3,8 @@ package tom.tasklist;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import tom.exception.TomCommandException;
+import tom.exception.InvalidIndexException;
 import tom.task.Task;
 
 /**
@@ -41,14 +43,13 @@ public class TaskList implements Iterable<Task> {
      * Removes a task from the list at the specified position.
      *
      * @param position The position of the task to be removed (1-based index).
-     * @return true if the task was removed successfully, false otherwise.
+     * @throws InvalidIndexException If the position is invalid.
      */
-    public boolean removeTask(int position) {
+    public void removeTask(int position) throws InvalidIndexException {
         if (!isValidPosition(position)) {
-            return false;
+            throw new InvalidIndexException("Invalid position: " + position);
         }
         tasks.remove(position - 1);
-        return true;
     }
 
     /**
@@ -98,16 +99,18 @@ public class TaskList implements Iterable<Task> {
      * @param position The position of the task to be marked (1-based index).
      * @param done     true to mark the task as done, false to mark it as not done.
      * @return true if the task was marked successfully, false otherwise.
+     * @throws InvalidIndexException If the position is invalid.
+     * @throws TaskException         If the task errors on marking.
      */
-    public boolean markTask(int position, boolean done) {
+    public void markTask(int position, boolean done) throws TomCommandException {
         if (!isValidPosition(position)) {
-            return false;
+            throw new InvalidIndexException("Invalid position: " + position);
         }
         Task task = tasks.get(position - 1);
         if (done) {
-            return task.markDone();
+            task.markDone();
         } else {
-            return task.markUndone();
+            task.markUndone();
         }
     }
 

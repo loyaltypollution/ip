@@ -6,7 +6,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import tom.command.Command;
-import tom.command.UnknownCommand;
+import tom.command.ReportErrorCommand;
+import tom.exception.IncompleteParseException;
+import tom.exception.InvalidRegexException;
+import tom.exception.TomParseException;
 import tom.ui.Ui;
 
 /**
@@ -44,19 +47,34 @@ public abstract class CommandParser {
     }
 
     /**
+     * Sets the ID of this CommandParser.
+     * @param id    The new ID.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
      * Parses the next input string and matches it against the current pattern.
      *
      * @param input The input string to be parsed.
+     * @throws InvalidRegexException If the input does not match the current pattern.
+     * @throws TomParseException     If no more patterns to match.
      */
-    public void parseNext(String input) {
-        // raise error if patterns is already empty!
+    public void parseNext(String input) throws TomParseException {
+        if (input == null) {
+            return;
+        }
+
+        if (patterns.isEmpty()) {
+            throw new TomParseException("No more patterns to match.");
+        }
 
         Pattern pattern = patterns.element();
         Matcher matcher = pattern.matcher(input);
 
         if (!matcher.find()) {
-            // this is an invalid input
-            return;
+            throw new InvalidRegexException(pattern, input);
         }
         patterns.poll();
         inputs.add(matcher.group());
@@ -92,13 +110,17 @@ public abstract class CommandParser {
     /**
      * Produces a command if all patterns have been matched.
      *
-     * @return The created command or an UnknownCommand if not complete.
+     * @return The created command or an InvalidCommand if parsing error.
      */
     public Command produceCommand() {
-        if (!isComplete()) {
-            return new UnknownCommand();
+        try {
+            if (!isComplete()) {
+                throw new IncompleteParseException("Incomplete command pattern.");
+            }
+            return createCommand();
+        } catch (TomParseException e) {
+            return new ReportErrorCommand(e);
         }
-        return createCommand();
     }
 
     /**
@@ -114,6 +136,7 @@ public abstract class CommandParser {
      * Creates a command based on the matched patterns.
      *
      * @return The created command.
+     * @throws TomParseException if the command creation fails.
      */
-    protected abstract Command createCommand();
+    protected abstract Command createCommand() throws TomParseException;
 }

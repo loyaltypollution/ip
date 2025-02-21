@@ -1,5 +1,6 @@
 package tom.task;
 
+import tom.exception.TaskException;
 import tom.parser.WordMatch;
 
 /**
@@ -40,12 +41,13 @@ public class Task {
     /**
      * Marks the task as done.
      *
-     * @return true if the task was not already marked as done, false otherwise.
+     * @throws TaskException If the task is already done.
      */
-    public boolean markDone() {
-        boolean res = !isDone;
+    public void markDone() throws TaskException {
+        if (isDone) {
+            throw new TaskException("Task is already done.");
+        }
         isDone = true;
-        return res;
     }
 
     /**
@@ -68,12 +70,13 @@ public class Task {
     /**
      * Marks the task as not done.
      *
-     * @return true if the task was marked as done, false otherwise.
+     * @throws TaskException If the task is already not done.
      */
-    public boolean markUndone() {
-        boolean res = isDone;
+    public void markUndone() throws TaskException {
+        if (!isDone) {
+            throw new TaskException("Task is already not done.");
+        }
         isDone = false;
-        return res;
     }
 
     /**

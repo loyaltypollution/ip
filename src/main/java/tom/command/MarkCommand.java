@@ -1,5 +1,6 @@
 package tom.command;
 
+import tom.exception.TomCommandException;
 import tom.storage.Storage;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
@@ -26,14 +27,12 @@ public class MarkCommand extends Command {
      * @param tasks The task list.
      * @param ui The UI for interacting with the user.
      * @param storage The storage for saving tasks.
+     * @throws TomCommandException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        if (tasks.markTask(position, true)) {
-            ui.showMessage(id, "marked in tasklist");
-        } else {
-            ui.showMessage(id, "unable to mark");
-        }
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws TomCommandException{
+        tasks.markTask(position, true);
+        ui.showMessage(id, "marked in tasklist");
     };
 
     /**

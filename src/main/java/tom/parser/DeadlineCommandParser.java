@@ -2,6 +2,7 @@ package tom.parser;
 
 import tom.command.Command;
 import tom.command.DeadlineCommand;
+import tom.exception.InvalidDateException;
 import tom.ui.Ui;
 
 /**
@@ -26,9 +27,10 @@ public class DeadlineCommandParser extends CommandParser {
      * Creates a DeadlineCommand with the specified description and end date.
      *
      * @return The created DeadlineCommand.
+     * @throws InvalidDateException If the date is invalid.
      */
     @Override
-    protected Command createCommand() {
+    protected Command createCommand() throws InvalidDateException {
         String description = inputs.poll();
         String endDate = inputs.poll();
         return new DeadlineCommand(description, Parser.stringToDate(endDate));

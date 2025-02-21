@@ -1,5 +1,6 @@
 package tom.command;
 
+import tom.exception.TomCommandException;
 import tom.storage.Storage;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
@@ -15,7 +16,7 @@ public abstract class Command {
         this.id = id;
     }
 
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws TomCommandException;
 
     public abstract boolean isExit();
 }

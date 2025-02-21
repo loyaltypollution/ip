@@ -1,5 +1,6 @@
 package tom.command;
 
+import tom.exception.InvalidIndexException;
 import tom.storage.Storage;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
@@ -25,14 +26,12 @@ public class DeleteCommand extends Command {
      * @param tasks The task list.
      * @param ui The UI for interacting with the user.
      * @param storage The storage for saving tasks.
+     * @throws InvalidIndexException If the position is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        if (tasks.removeTask(position)) {
-            ui.showMessage(id, "deleted from tasklist");
-        } else {
-            ui.showMessage(id, "unable to delete");
-        }
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
+        tasks.removeTask(position);
+        ui.showMessage(id, "deleted from tasklist");
     };
 
     /**

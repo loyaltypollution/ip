@@ -2,8 +2,11 @@ package tom.parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import tom.ui.Ui;
+import tom.exception.InvalidDateException;
+import tom.exception.UnknownCommandException;
 
 /**
  * Parses user input and converts it into commands.
@@ -15,12 +18,18 @@ public class Parser {
      *
      * @param string The string to be converted.
      * @return The LocalDate object.
-     * @throws IllegalArgumentException if the string does not match the date
+     * @throws InvalidDateException if the string does not match the date
      *                                  pattern.
      */
-    public static LocalDate stringToDate(String string) throws IllegalArgumentException {
+    public static LocalDate stringToDate(String string) throws InvalidDateException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDate.parse(string, formatter);
+        try {
+            return LocalDate.parse(string, formatter);
+        }
+        catch (DateTimeParseException e) {
+            String errorMsg = String.format("Date [%s] should be of 'yyyy-MM-dd' form!", string);
+            throw new InvalidDateException(errorMsg);
+        }
     }
 
     /**
@@ -43,40 +52,45 @@ public class Parser {
      */
     public static CommandParser findParser(String commandType, Ui ui) {
         CommandParser parser;
-        switch (commandType) {
-        case "bye":
-            parser = new ByeCommandParser(ui);
-            break;
-        case "todo":
-            parser = new TodoCommandParser(ui);
-            break;
-        case "deadline":
-            parser = new DeadlineCommandParser(ui);
-            break;
-        case "event":
-            parser = new EventCommandParser(ui);
-            break;
-        case "list":
-            parser = new ListCommandParser(ui);
-            break;
-        case "mark":
-            parser = new MarkUnmarkCommandParser(true, ui);
-            break;
-        case "unmark":
-            parser = new MarkUnmarkCommandParser(false, ui);
-            break;
-        case "delete":
-            parser = new DeleteCommandParser(ui);
-            break;
-        case "save":
-            parser = new SaveCommandParser(ui);
-            break;
-        case "find":
-            parser = new FindCommandParser(ui);
-            break;
-        default:
-            parser = new UnknownCommandParser(ui);
-            break;
+        try {
+            switch (commandType) {
+            case "bye":
+                parser = new ByeCommandParser(ui);
+                break;
+            case "todo":
+                parser = new TodoCommandParser(ui);
+                break;
+            case "deadline":
+                parser = new DeadlineCommandParser(ui);
+                break;
+            case "event":
+                parser = new EventCommandParser(ui);
+                break;
+            case "list":
+                parser = new ListCommandParser(ui);
+                break;
+            case "mark":
+                parser = new MarkUnmarkCommandParser(true, ui);
+                break;
+            case "unmark":
+                parser = new MarkUnmarkCommandParser(false, ui);
+                break;
+            case "delete":
+                parser = new DeleteCommandParser(ui);
+                break;
+            case "save":
+                parser = new SaveCommandParser(ui);
+                break;
+            case "find":
+                parser = new FindCommandParser(ui);
+                break;
+            default:
+                throw new UnknownCommandException(String.format(
+                    "%s is an unknown command.", commandType
+                ));
+            }
+        } catch (UnknownCommandException e) {
+            return new ReportErrorCommandParser(ui, e);
         }
 
         return parser;

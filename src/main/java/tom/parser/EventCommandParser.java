@@ -2,6 +2,8 @@ package tom.parser;
 
 import tom.command.Command;
 import tom.command.EventCommand;
+import tom.exception.IncompleteParseException;
+import tom.exception.InvalidDateException;
 import tom.ui.Ui;
 
 /**
@@ -28,9 +30,10 @@ public class EventCommandParser extends CommandParser {
      * Creates an EventCommand with the specified description, start date, and end date.
      *
      * @return The created EventCommand.
+     * @throws IncompleteParseException If the date is invalid.
      */
     @Override
-    protected Command createCommand() {
+    protected Command createCommand() throws InvalidDateException {
         String description = inputs.poll();
         String startDate = inputs.poll();
         String endDate = inputs.poll();
