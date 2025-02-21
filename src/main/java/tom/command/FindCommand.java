@@ -1,5 +1,6 @@
 package tom.command;
 
+import tom.exception.TomCommandException;
 import tom.storage.Storage;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
@@ -26,14 +27,17 @@ public class FindCommand extends Command {
      * @param tasks The task list.
      * @param ui The UI for interacting with the user.
      * @param storage The storage for saving tasks.
+     * @throws TomCommandException If an error occurs during command execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws TomCommandException{
         TaskList matchedTasks = tasks.findTasks(keyword);
         ui.showMessage(id, "Here are the matching tasks in your list:");
 
         // Let the ListCommand handle the printing of the matched tasks
-        new ListCommand().execute(matchedTasks, ui, storage);
+        Command command = new ListCommand();
+        command.setId(id);
+        command.execute(matchedTasks, ui, storage);
     };
 
     /**
