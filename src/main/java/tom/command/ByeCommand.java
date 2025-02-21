@@ -25,7 +25,7 @@ public class ByeCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         // Display goodbye message to user.
-        ui.showMessage("Exiting in a few seconds. Hope to see you again soon!");
+        ui.showMessage(id, "Exiting in a few seconds. Hope to see you again soon!");
 
         // Close the JavaFx application after a few seconds.
         ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();

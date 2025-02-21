@@ -15,7 +15,7 @@ import tom.ui.Ui;
  */
 public abstract class CommandParser {
 
-    private static int lastId = 0;
+    private static int lastId = 1;
 
     protected Queue<String> inputs = new LinkedList<>();
     protected Queue<Pattern> patterns = new LinkedList<>();

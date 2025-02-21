@@ -1,6 +1,5 @@
 package tom.ui;
 
-import java.util.HashMap;
 import java.util.function.Consumer;
 
 /**
@@ -9,36 +8,28 @@ import java.util.function.Consumer;
 public class Gui implements Ui {
 
     private final MainWindow mainWindow;
-    private HashMap<Integer, DialogBox> objectMap = new HashMap<>();
-    private int windowKey;
 
     public Gui(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
     }
 
     /**
-     * Displays a formatted message in the main window.
+     * Displays a formatted message in given dialog box.
      *
+     * @param commandId  The commandId of dialog box to be formatted.
      * @param msg  The message template to be formatted.
      * @param args The arguments to be used in the message template.
      */
-    public void showMessage(String msg, Object... args) {
+    public void showMessage(int commandId, String msg, Object... args) {
         String outputMsg = String.format(msg, args);
-        DialogBox box = objectMap.get(windowKey);
+        DialogBox box = mainWindow.getBox(commandId);
         box.setText(outputMsg);
     }
 
     @Override
-    public void promptForInput(String promptMsg, Consumer<String> onInputReceived) {
-        DialogBox box = objectMap.get(windowKey);
+    public void promptForInput(int commandId, String promptMsg, Consumer<String> onInputReceived) {
+        DialogBox box = mainWindow.getBox(commandId);
         box.setText(promptMsg);
-
-        onInputReceived.accept("task thing");
-    }
-
-    @Override
-    public void findWindow(int key) {
-        objectMap.computeIfAbsent(key, obj -> mainWindow.addTomDialog(""));
-        windowKey = key;
+        box.setHandler(onInputReceived);
     }
 }

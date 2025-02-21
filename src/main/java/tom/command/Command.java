@@ -9,7 +9,7 @@ import tom.ui.Ui;
  */
 public abstract class Command {
 
-    protected int id = 0;
+    protected int id = 1;
 
     public void setId(int id) {
         this.id = id;

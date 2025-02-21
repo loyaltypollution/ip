@@ -74,6 +74,7 @@ public class Tom {
         } else {
             nextCommand = commandParser.produceCommand();
         }
+
         nextCommand.setId(commandParser.getId());
         addCommand(nextCommand);
         executeCommands();

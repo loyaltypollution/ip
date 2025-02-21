@@ -30,9 +30,9 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.markTask(position, true)) {
-            ui.showMessage("marked in tasklist");
+            ui.showMessage(id, "marked in tasklist");
         } else {
-            ui.showMessage("unable to mark");
+            ui.showMessage(id, "unable to mark");
         }
     };
 

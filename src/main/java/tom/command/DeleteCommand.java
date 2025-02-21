@@ -29,9 +29,9 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.removeTask(position)) {
-            ui.showMessage("deleted from tasklist");
+            ui.showMessage(id, "deleted from tasklist");
         } else {
-            ui.showMessage("unable to delete");
+            ui.showMessage(id, "unable to delete");
         }
     };
 

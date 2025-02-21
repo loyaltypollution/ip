@@ -34,8 +34,7 @@ public class PromptCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.findWindow(this.id);
-        ui.promptForInput(promptMsg, handler);
+        ui.promptForInput(id, promptMsg, handler);
     }
 
     /**

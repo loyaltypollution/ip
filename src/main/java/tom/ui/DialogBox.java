@@ -2,6 +2,7 @@ package tom.ui;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.function.Consumer;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -22,9 +24,12 @@ public class DialogBox extends HBox {
 
     private static final Image userImage = new Image(DialogBox.class.getResourceAsStream("/images/DaUser.png"));
     private static final Image tomImage = new Image(DialogBox.class.getResourceAsStream("/images/DaTom.png"));
+    private int commandId;
 
     @FXML
     private Label dialog;
+    @FXML
+    private TextField userInput;
     @FXML
     private ImageView displayPicture;
 
@@ -42,8 +47,21 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
+    public int getCommandId() {
+        return commandId;
+    }
+
     public void setText(String text) {
         dialog.setText(text);
+    }
+
+    public void setHandler(Consumer<String> handler) {
+        userInput.setVisible(true);
+        userInput.setOnAction((event) -> {
+            String input = userInput.getText();
+            userInput.setVisible(false);
+            handler.accept(input);
+        });
     }
 
     /**
@@ -57,12 +75,14 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text) {
-        return new DialogBox(text, userImage);
+        DialogBox box = new DialogBox(text, userImage);
+        return box;
     }
 
-    public static DialogBox getTomDialog(String text) {
-        var db = new DialogBox(text, tomImage);
-        db.flip();
-        return db;
+    public static DialogBox getTomDialog(String text, int commandId) {
+        DialogBox box = new DialogBox(text, tomImage);
+        box.commandId = commandId;
+        box.flip();
+        return box;
     }
 }

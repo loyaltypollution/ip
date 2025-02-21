@@ -9,6 +9,7 @@ import tom.ui.Ui;
  */
 public class EventCommandParser extends CommandParser {
 
+    // regex for YYYY-MM-DD
     private static final String DATE_PATTERN = "\\d{4}\\-(?:0?[1-9]|1[012])\\-(?:0[1-9]|[12][0-9]|3[01])";
 
     /**

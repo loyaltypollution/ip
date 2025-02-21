@@ -31,9 +31,9 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.markTask(position, false)) {
-            ui.showMessage("unmarked in tasklist");
+            ui.showMessage(id, "unmarked in tasklist");
         } else {
-            ui.showMessage("unable to unmark");
+            ui.showMessage(id, "unable to unmark");
         }
     };
 

@@ -18,7 +18,7 @@ public class UnknownCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMessage("Command format not recognized.");
+        ui.showMessage(id, "Command format not recognized.");
     };
 
     /**

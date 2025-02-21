@@ -1,6 +1,7 @@
 package tom.ui;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -32,14 +33,27 @@ public class MainWindow extends AnchorPane {
         tom = d;
     }
 
+    public DialogBox getBox(int commandId) {
+        for (Node node: dialogContainer.getChildren()) {
+            if (!(node instanceof DialogBox)) {
+                continue;
+            }
+            DialogBox box =(DialogBox) node;
+            if (box.getCommandId() == commandId) {
+                return box;
+            }
+        }
+        return addTomDialog("", commandId);
+    }
+
     /**
      * Adds a dialog box containing Tom's response to the dialog container.
      *
      * @param msg The message to be displayed in Tom's dialog box.
      * @return The DialogBox containing Tom's response.
      */
-    public DialogBox addTomDialog(String msg) {
-        DialogBox box = DialogBox.getTomDialog(msg);
+    public DialogBox addTomDialog(String msg, int id) {
+        DialogBox box = DialogBox.getTomDialog(msg, id);
         dialogContainer.getChildren().add(box);
         return box;
     }

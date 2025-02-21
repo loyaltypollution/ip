@@ -7,9 +7,7 @@ import java.util.function.Consumer;
  */
 public interface Ui {
 
-    public void showMessage(String msg, Object ...args);
+    public void showMessage(int commandId, String msg, Object ...args);
 
-    public void promptForInput(String promptMsg, Consumer<String> onInputReceived);
-
-    public void findWindow(int key);
+    public void promptForInput(int commandId, String promptMsg, Consumer<String> onInputReceived);
 }

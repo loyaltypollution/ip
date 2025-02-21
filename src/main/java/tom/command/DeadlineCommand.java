@@ -37,7 +37,7 @@ public class DeadlineCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Deadline task = new Deadline(description, end);
         tasks.addTask(task);
-        ui.showMessage("added %s to tasklist (current size: %d)", task, tasks.size());
+        ui.showMessage(id, "added %s to tasklist (current size: %d)", task, tasks.size());
     };
 
     /**
