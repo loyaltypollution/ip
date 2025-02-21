@@ -1,16 +1,28 @@
 package tom.command;
 
+import tom.exception.TomException;
 import tom.storage.Storage;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
 
 /**
- * Represents a command that is not recognized.
+ * Represents a command that is invalid.
  */
-public class UnknownCommand extends Command {
+public class ReportErrorCommand extends Command {
+
+    private TomException exception;
 
     /**
-     * Executes the command to notify the user that the command is not recognized.
+     * Constructs an InvalidCommand with the specified exception.
+     *
+     * @param exception The exception that caused this command to be invalid.
+     */
+    public ReportErrorCommand(TomException exception) {
+        this.exception = exception;
+    }
+
+    /**
+     * Executes the command to notify the user that the command is invalid.
      *
      * @param tasks The task list.
      * @param ui The UI for interacting with the user.
@@ -18,8 +30,8 @@ public class UnknownCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMessage("Command format not recognized.");
-    };
+        ui.showMessage(id, "Invalid command: %s", exception.getMessage());
+    }
 
     /**
      * Indicates whether this command exits the application.

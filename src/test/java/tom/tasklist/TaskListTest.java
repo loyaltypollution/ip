@@ -1,14 +1,16 @@
 package tom.tasklist;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import tom.task.Task;
 import tom.task.Todo;
+import tom.exception.InvalidIndexException;
+import tom.exception.TaskException;
 
 public class TaskListTest {
     private TaskList taskList;
@@ -34,32 +36,32 @@ public class TaskListTest {
     }
 
     @Test
-    public void removeTask_decreasesSize() {
+    public void removeTask_decreasesSize() throws InvalidIndexException {
         taskList.addTask(task1);
         taskList.addTask(task2);
-        assertTrue(taskList.removeTask(1));
+        assertDoesNotThrow(() -> taskList.removeTask(1));
         assertEquals(1, taskList.size());
     }
 
     @Test
-    public void removeTask_invalidPosition_returnsFalse() {
+    public void removeTask_invalidPosition_throwsException() {
         taskList.addTask(task1);
-        assertFalse(taskList.removeTask(0));
-        assertFalse(taskList.removeTask(2));
+        assertThrows(InvalidIndexException.class, () -> taskList.removeTask(0));
+        assertThrows(InvalidIndexException.class, () -> taskList.removeTask(2));
     }
 
     @Test
-    public void markTask_done() {
+    public void markTask_done() throws TaskException {
         taskList.addTask(task1);
-        assertTrue(taskList.markTask(1, true));
+        assertDoesNotThrow(() -> taskList.markTask(1, true));
         assertEquals("X", task1.getStatusIcon());
     }
 
     @Test
-    public void markTask_undone() {
+    public void markTask_undone() throws TaskException {
         taskList.addTask(task1);
-        taskList.markTask(1, true);
-        assertTrue(taskList.markTask(1, false));
+        assertDoesNotThrow(() -> taskList.markTask(1, true));
+        assertDoesNotThrow(() -> taskList.markTask(1, false));
         assertEquals(" ", task1.getStatusIcon());
     }
 }

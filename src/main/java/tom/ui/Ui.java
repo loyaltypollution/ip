@@ -1,10 +1,13 @@
 package tom.ui;
 
+import java.util.function.Consumer;
+
 /**
- * Handles the user interface for interacting with the user.
+ * Abstracts the user interface for interacting with the user.
  */
 public interface Ui {
-    
-    public void showMessage(String msg, Object ...args);
 
+    public void showMessage(int commandId, String msg, Object ...args);
+
+    public void promptForInput(int commandId, String promptMsg, Consumer<String> onInputReceived);
 }

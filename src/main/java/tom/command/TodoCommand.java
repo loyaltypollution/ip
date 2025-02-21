@@ -32,7 +32,8 @@ public class TodoCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Todo task = new Todo(description);
         tasks.addTask(task);
-        ui.showMessage("added %s to tasklist (current size: %d)", task, tasks.size());
+
+        ui.showMessage(id, "added %s to tasklist (current size: %d)", task, tasks.size());
     };
 
     /**

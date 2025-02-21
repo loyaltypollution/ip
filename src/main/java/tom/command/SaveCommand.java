@@ -19,7 +19,7 @@ public class SaveCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (storage.saveFile(tasks)) {
-            ui.showMessage("Successfully saved tasklist file!");
+            ui.showMessage(id, "Successfully saved tasklist file!");
         }
     };
 

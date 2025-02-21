@@ -1,5 +1,6 @@
 package tom.command;
 
+import tom.exception.TomCommandException;
 import tom.storage.Storage;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
@@ -22,19 +23,17 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Executes the command to unmark a task as done in the task list.
+     * Executes the command to mark a task as done in the task list.
      *
      * @param tasks The task list.
      * @param ui The UI for interacting with the user.
      * @param storage The storage for saving tasks.
+     * @throws TomCommandException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        if (tasks.markTask(position, false)) {
-            ui.showMessage("unmarked in tasklist");
-        } else {
-            ui.showMessage("unable to unmark");
-        }
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws TomCommandException{
+        tasks.markTask(position, false);
+        ui.showMessage(id, "marked in tasklist");
     };
 
     /**
