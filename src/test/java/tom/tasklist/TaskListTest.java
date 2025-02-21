@@ -7,10 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import tom.task.Task;
-import tom.task.Todo;
 import tom.exception.InvalidIndexException;
 import tom.exception.TaskException;
+import tom.task.Task;
+import tom.task.Todo;
 
 public class TaskListTest {
     private TaskList taskList;

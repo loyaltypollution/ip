@@ -17,7 +17,7 @@ public class InvalidRegexException extends TomParseException {
             """
             Invalid input format, %s expected.
             %s received instead
-            """, 
+            """,
             pattern.pattern(), input
         ));
     }

@@ -31,7 +31,7 @@ public class UnmarkCommand extends Command {
      * @throws TomCommandException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws TomCommandException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws TomCommandException {
         tasks.markTask(position, false);
         ui.showMessage(id, "marked in tasklist");
     };

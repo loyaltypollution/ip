@@ -77,7 +77,7 @@ public class Tom {
             errorParser.setId(-Math.abs(commandParser.getId()));
             handleUserInput("", errorParser);
         }
-        
+
         Command command = buildCommand(input, commandParser);
         if (command != null) {
             addCommand(command);
@@ -85,7 +85,7 @@ public class Tom {
         command.setId(commandParser.getId());
         executeCommands();
     }
-    
+
     /**
      * Builds a command from the given input and parser.
      *
@@ -97,9 +97,8 @@ public class Tom {
         Command command;
         if (!commandParser.isComplete()) {
             command = new PromptCommand(commandParser.getPromptMsg(),
-            newInput -> handleUserInput(newInput, commandParser));
-        }
-        else {
+                newInput -> handleUserInput(newInput, commandParser));
+        } else {
             command = commandParser.produceCommand();
         }
         command.setId(commandParser.getId());
@@ -123,8 +122,7 @@ public class Tom {
             Command command = commandQueue.poll();
             try {
                 command.execute(tasks, ui, storage);
-            }
-            catch (TomCommandException e) {
+            } catch (TomCommandException e) {
                 commandQueue.add(new ReportErrorCommand(e));
             }
         }

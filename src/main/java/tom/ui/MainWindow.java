@@ -38,7 +38,7 @@ public class MainWindow extends AnchorPane {
             if (!(node instanceof DialogBox)) {
                 continue;
             }
-            DialogBox box =(DialogBox) node;
+            DialogBox box = (DialogBox) node;
             if (box.getCommandId() == commandId) {
                 return box;
             }

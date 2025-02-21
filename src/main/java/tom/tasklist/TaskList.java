@@ -3,8 +3,8 @@ package tom.tasklist;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import tom.exception.TomCommandException;
 import tom.exception.InvalidIndexException;
+import tom.exception.TomCommandException;
 import tom.task.Task;
 
 /**
@@ -98,7 +98,6 @@ public class TaskList implements Iterable<Task> {
      *
      * @param position The position of the task to be marked (1-based index).
      * @param done     true to mark the task as done, false to mark it as not done.
-     * @return true if the task was marked successfully, false otherwise.
      * @throws InvalidIndexException If the position is invalid.
      * @throws TaskException         If the task errors on marking.
      */

@@ -30,7 +30,7 @@ public class FindCommand extends Command {
      * @throws TomCommandException If an error occurs during command execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws TomCommandException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws TomCommandException {
         TaskList matchedTasks = tasks.findTasks(keyword);
         ui.showMessage(id, "Here are the matching tasks in your list:");
 

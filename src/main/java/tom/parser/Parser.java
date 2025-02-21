@@ -4,10 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import tom.ui.Ui;
-import tom.command.LoadCommand;
 import tom.exception.InvalidDateException;
 import tom.exception.UnknownCommandException;
+import tom.ui.Ui;
 
 /**
  * Parses user input and converts it into commands.
@@ -39,8 +38,7 @@ public class Parser {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         try {
             return LocalDate.parse(string, formatter);
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             String errorMsg = String.format("Date [%s] should be of '%s' form!", pattern, string);
             throw new InvalidDateException(errorMsg);
         }

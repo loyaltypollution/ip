@@ -60,6 +60,12 @@ public class Storage {
         return true;
     }
 
+    /**
+     * Loads the tasks from the file.
+     *
+     * @param tasks The list of tasks to be loaded.
+     * @throws TomCommandException If there is an error in the command.
+     */
     public void loadFile(TaskList tasks) throws TomCommandException {
         try {
             BufferedReader taskReader = new BufferedReader(new FileReader(filePath));
@@ -74,6 +80,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a string from the file format to a Task object.
+     *
+     * @param line The string in file format.
+     * @return The Task object.
+     * @throws TomCommandException If there is an error in the command.
+     */
     public Task fromFileFormatString(String line) throws TomCommandException {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
@@ -81,23 +94,23 @@ public class Storage {
         String description = parts[2];
         Task task;
         switch (type) {
-            case "T": {
-                task = new Todo(description);
-                break;
-            }
-            case "D": {
-                LocalDate end = Parser.stringToDate(parts[3], "MMM d yyyy");
-                task = new Deadline(description, end);
-                break;
-            }
-            case "E": {
-                LocalDate start = Parser.stringToDate(parts[3], "MMM d yyyy");
-                LocalDate end = Parser.stringToDate(parts[4], "MMM d yyyy");
-                task = new Event(description, start, end);
-                break;
-            }
-            default:
-                throw new TomCommandException("Invalid task type in file.");
+        case "T": {
+            task = new Todo(description);
+            break;
+        }
+        case "D": {
+            LocalDate end = Parser.stringToDate(parts[3], "MMM d yyyy");
+            task = new Deadline(description, end);
+            break;
+        }
+        case "E": {
+            LocalDate start = Parser.stringToDate(parts[3], "MMM d yyyy");
+            LocalDate end = Parser.stringToDate(parts[4], "MMM d yyyy");
+            task = new Event(description, start, end);
+            break;
+        }
+        default:
+            throw new TomCommandException("Invalid task type in file.");
         }
         if (status.equals("X")) {
             task.markDone();
