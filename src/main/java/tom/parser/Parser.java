@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import tom.ui.Ui;
+import tom.command.LoadCommand;
 import tom.exception.InvalidDateException;
 import tom.exception.UnknownCommandException;
 
@@ -22,12 +23,25 @@ public class Parser {
      *                                  pattern.
      */
     public static LocalDate stringToDate(String string) throws InvalidDateException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return stringToDate(string, "yyyy-MM-dd");
+    }
+
+    /**
+     * Converts a string to a LocalDate object.
+     *
+     * @param string The string to be converted.
+     * @param pattern The pattern of the date string.
+     * @return The LocalDate object.
+     * @throws InvalidDateException if the string does not match the date
+     *                                  pattern.
+     */
+    public static LocalDate stringToDate(String string, String pattern) throws InvalidDateException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         try {
             return LocalDate.parse(string, formatter);
         }
         catch (DateTimeParseException e) {
-            String errorMsg = String.format("Date [%s] should be of 'yyyy-MM-dd' form!", string);
+            String errorMsg = String.format("Date [%s] should be of '%s' form!", pattern, string);
             throw new InvalidDateException(errorMsg);
         }
     }
@@ -68,6 +82,9 @@ public class Parser {
                 break;
             case "list":
                 parser = new ListCommandParser(ui);
+                break;
+            case "load":
+                parser = new LoadCommandParser(ui);
                 break;
             case "mark":
                 parser = new MarkUnmarkCommandParser(true, ui);

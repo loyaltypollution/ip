@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import tom.command.Command;
+import tom.command.LoadCommand;
 import tom.command.PromptCommand;
 import tom.command.ReportErrorCommand;
 import tom.exception.TomCommandException;
@@ -42,6 +43,8 @@ public class Tom {
         storage = new Storage(filePath);
         tasks = new TaskList();
         commandQueue = new LinkedList<>();
+
+        addCommand(new LoadCommand());
     }
 
     /**

@@ -34,7 +34,13 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormatString() {
-        return String.format("E | %s | %s", getStatusIcon(), getDescription());
+        return String.format(
+            "E | %s | %s | %s | %s",
+            getStatusIcon(),
+            getDescription(),
+            Parser.dateToString(start),
+            Parser.dateToString(end)
+        );
     }
 
     /**

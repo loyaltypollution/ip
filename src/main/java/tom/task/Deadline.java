@@ -30,7 +30,12 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormatString() {
-        return String.format("D | %s | %s", getStatusIcon(), getDescription());
+        return String.format(
+            "D | %s | %s | %s",
+            getStatusIcon(),
+            getDescription(),
+            Parser.dateToString(end)
+        );
     }
 
     /**

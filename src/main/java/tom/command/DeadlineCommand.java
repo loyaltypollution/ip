@@ -2,6 +2,8 @@ package tom.command;
 
 import java.time.LocalDate;
 
+import tom.exception.InvalidDateException;
+import tom.parser.Parser;
 import tom.storage.Storage;
 import tom.task.Deadline;
 import tom.tasklist.TaskList;
@@ -13,7 +15,7 @@ import tom.ui.Ui;
 public class DeadlineCommand extends Command {
 
     private String description;
-    private LocalDate end;
+    private String end;
 
     /**
      * Constructs a DeadlineCommand with the specified description and end date.
@@ -21,7 +23,7 @@ public class DeadlineCommand extends Command {
      * @param description The description of the task.
      * @param end The end date of the task.
      */
-    public DeadlineCommand(String description, LocalDate end) {
+    public DeadlineCommand(String description, String end) {
         this.description = description;
         this.end = end;
     }
@@ -32,10 +34,12 @@ public class DeadlineCommand extends Command {
      * @param tasks The task list.
      * @param ui The UI for interacting with the user.
      * @param storage The storage for saving tasks.
+     * @throws InvalidDateException if the date is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Deadline task = new Deadline(description, end);
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDateException {
+        LocalDate dateEnd = Parser.stringToDate(end);
+        Deadline task = new Deadline(description, dateEnd);
         tasks.addTask(task);
         ui.showMessage(id, "added %s to tasklist (current size: %d)", task, tasks.size());
     };
