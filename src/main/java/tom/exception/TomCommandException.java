@@ -6,7 +6,7 @@ package tom.exception;
 public class TomCommandException extends TomException {
 
     /**
-     * Constructs an CommandException with the specified detail message.
+     * Constructs an TomCommandException with the specified detail message.
      *
      * @param message The detail message.
      */

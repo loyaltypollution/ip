@@ -1,5 +1,6 @@
 package tom.command;
 
+import tom.exception.TomCommandException;
 import tom.storage.Storage;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
@@ -15,12 +16,12 @@ public class SaveCommand extends Command {
      * @param tasks The task list.
      * @param ui The UI for interacting with the user.
      * @param storage The storage for saving tasks.
+     * @throws TomCommandException If there is an error in the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        if (storage.saveFile(tasks)) {
-            ui.showMessage(id, "Successfully saved tasklist file!");
-        }
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws TomCommandException {
+        storage.saveFile(tasks);
+        ui.showMessage(id, "Successfully saved tasklist file!");
     };
 
     /**
