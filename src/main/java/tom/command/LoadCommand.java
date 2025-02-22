@@ -20,6 +20,7 @@ public class LoadCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws TomCommandException {
+        tasks.clear();
         storage.loadFile(tasks);
     };
 
