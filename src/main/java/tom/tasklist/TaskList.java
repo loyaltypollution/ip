@@ -114,6 +114,13 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
+     * Clears all tasks from the list.
+     */
+    public void clear() {
+        tasks.clear();
+    }
+
+    /**
      * Checks if the given position is valid within the task list.
      *
      * @param position The position to check (1-based index).

@@ -2,6 +2,7 @@ package tom.command;
 
 import java.util.function.Consumer;
 
+import tom.exception.TomParseException;
 import tom.storage.Storage;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
@@ -20,9 +21,11 @@ public class PromptCommand extends Command {
      * @param promptMsg The message to prompt user with.
      * @param handler The callback function upon receiving input.
      */
-    public PromptCommand(String promptMsg, Consumer<String> handler) {
-        this.promptMsg = promptMsg;
-        this.handler = handler;
+    public PromptCommand(TomParseException exception, Consumer<String> handler) {
+        this.promptMsg = exception.getMessage();
+        if (exception.needPrompt()) {
+            this.handler = handler;
+        }
     }
 
     /**

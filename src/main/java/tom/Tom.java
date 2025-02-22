@@ -11,7 +11,6 @@ import tom.exception.TomCommandException;
 import tom.exception.TomParseException;
 import tom.parser.CommandParser;
 import tom.parser.Parser;
-import tom.parser.ReportErrorCommandParser;
 import tom.storage.Storage;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
@@ -70,39 +69,20 @@ public class Tom {
      * @param commandParser The parser that will parse given input.
      */
     public void handleUserInput(String input, CommandParser commandParser) {
+        Command command;
         try {
             commandParser.parseNext(input);
+            command = commandParser.produceCommand();
         } catch (TomParseException e) {
-            CommandParser errorParser = new ReportErrorCommandParser(ui, e);
-            errorParser.setId(-Math.abs(commandParser.getId()));
-            handleUserInput("", errorParser);
+             command = new PromptCommand(e,
+            newInput -> handleUserInput(newInput, commandParser));
         }
-
-        Command command = buildCommand(input, commandParser);
+        
+        command.setId(commandParser.getId());
         if (command != null) {
             addCommand(command);
         }
-        command.setId(commandParser.getId());
         executeCommands();
-    }
-
-    /**
-     * Builds a command from the given input and parser.
-     *
-     * @param input The user input.
-     * @param commandParser The parser that will parse given input.
-     * @return The command built from the input.
-     */
-    private Command buildCommand(String input, CommandParser commandParser) {
-        Command command;
-        if (!commandParser.isComplete()) {
-            command = new PromptCommand(commandParser.getPromptMsg(),
-                newInput -> handleUserInput(newInput, commandParser));
-        } else {
-            command = commandParser.produceCommand();
-        }
-        command.setId(commandParser.getId());
-        return command;
     }
 
     /**
@@ -123,7 +103,9 @@ public class Tom {
             try {
                 command.execute(tasks, ui, storage);
             } catch (TomCommandException e) {
-                commandQueue.add(new ReportErrorCommand(e));
+                Command errCommand = new ReportErrorCommand(e);
+                errCommand.setId(command.getId());
+                commandQueue.add(errCommand);
             }
         }
     }

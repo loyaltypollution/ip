@@ -13,4 +13,8 @@ public class TomParseException extends TomException {
     public TomParseException(String message) {
         super(message);
     }
+
+    public boolean needPrompt() {
+        return false;
+    }
 }

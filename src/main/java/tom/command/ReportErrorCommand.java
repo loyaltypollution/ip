@@ -1,6 +1,6 @@
 package tom.command;
 
-import tom.exception.TomException;
+import tom.exception.TomCommandException;
 import tom.storage.Storage;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
@@ -10,14 +10,14 @@ import tom.ui.Ui;
  */
 public class ReportErrorCommand extends Command {
 
-    private TomException exception;
+    private TomCommandException exception;
 
     /**
      * Constructs an InvalidCommand with the specified exception.
      *
      * @param exception The exception that caused this command to be invalid.
      */
-    public ReportErrorCommand(TomException exception) {
+    public ReportErrorCommand(TomCommandException exception) {
         this.exception = exception;
     }
 

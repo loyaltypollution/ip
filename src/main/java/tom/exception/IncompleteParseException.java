@@ -13,4 +13,8 @@ public class IncompleteParseException extends TomParseException {
     public IncompleteParseException(String message) {
         super(message);
     }
+
+    public boolean needPrompt() {
+        return true;
+    }
 }

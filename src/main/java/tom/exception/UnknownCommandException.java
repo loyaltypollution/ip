@@ -3,14 +3,13 @@ package tom.exception;
 /**
  * Exception thrown when an unknown command is encountered.
  */
-public class UnknownCommandException extends TomException {
+public class UnknownCommandException extends TomParseException {
 
     /**
      * Constructs an UnknownCommandException with the specified detail message.
      *
-     * @param message The detail message.
      */
-    public UnknownCommandException(String message) {
-        super(message);
+    public UnknownCommandException() {
+        super("Invalid Command! Please enter a valid command.");
     }
 }

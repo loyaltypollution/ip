@@ -56,6 +56,10 @@ public class DialogBox extends HBox {
     }
 
     public void setHandler(Consumer<String> handler) {
+        if (handler == null) {
+            userInput.setVisible(false);
+            return;
+        }
         userInput.setVisible(true);
         userInput.setOnAction((event) -> {
             String input = userInput.getText();

@@ -6,7 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import tom.command.Command;
-import tom.command.ReportErrorCommand;
 import tom.exception.IncompleteParseException;
 import tom.exception.InvalidRegexException;
 import tom.exception.TomParseException;
@@ -67,7 +66,9 @@ public abstract class CommandParser {
         }
 
         if (patterns.isEmpty()) {
-            throw new TomParseException("No more patterns to match.");
+            throw new TomParseException(
+                "Unnecessary arguments provided. Command ignored."
+            );
         }
 
         Pattern pattern = patterns.element();
@@ -111,16 +112,13 @@ public abstract class CommandParser {
      * Produces a command if all patterns have been matched.
      *
      * @return The created command or an InvalidCommand if parsing error.
+     * @throws TomParseException If the command creation fails.
      */
-    public Command produceCommand() {
-        try {
-            if (!isComplete()) {
-                throw new IncompleteParseException("Incomplete command pattern.");
-            }
-            return createCommand();
-        } catch (TomParseException e) {
-            return new ReportErrorCommand(e);
+    public Command produceCommand() throws TomParseException {
+        if (!isComplete()) {
+            throw new IncompleteParseException("Incomplete command pattern.");
         }
+        return createCommand();
     }
 
     /**

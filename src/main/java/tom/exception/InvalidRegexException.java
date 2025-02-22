@@ -21,4 +21,9 @@ public class InvalidRegexException extends TomParseException {
             pattern.pattern(), input
         ));
     }
+
+    @Override
+    public boolean needPrompt() {
+        return true;
+    }
 }
