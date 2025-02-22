@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import tom.exception.FileException;
 import tom.exception.TomCommandException;
 import tom.parser.Parser;
 import tom.task.Deadline;
@@ -35,9 +36,9 @@ public class Storage {
      * Saves the tasks to the file.
      *
      * @param tasks The list of tasks to be saved.
-     * @return true if the tasks were saved successfully, false otherwise.
+     * @throws TomCommandException If there is an error in the command.
      */
-    public boolean saveFile(TaskList tasks) {
+    public void saveFile(TaskList tasks) throws TomCommandException {
         assert tasks != null : "Task list should not be null";
         try {
             File file = new File(filePath);
@@ -54,10 +55,8 @@ public class Storage {
             taskWriter.write(tasksText);
             taskWriter.close();
         } catch (IOException e) {
-            System.out.println("Error caught with message: " + e.getMessage());
-            return false;
+            throw new FileException("file saving failed: " + e.getMessage());
         }
-        return true;
     }
 
     /**
@@ -67,6 +66,16 @@ public class Storage {
      * @throws TomCommandException If there is an error in the command.
      */
     public void loadFile(TaskList tasks) throws TomCommandException {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new FileException("file cannot be created: " + e.getMessage());
+            }
+        }
+
         try {
             BufferedReader taskReader = new BufferedReader(new FileReader(filePath));
             String line;
@@ -76,7 +85,7 @@ public class Storage {
             }
             taskReader.close();
         } catch (IOException e) {
-            System.out.println("Error caught with message: " + e.getMessage());
+            throw new FileException("file parsing failed: " + e.getMessage());
         }
     }
 
