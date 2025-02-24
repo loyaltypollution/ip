@@ -28,7 +28,9 @@ public class HelpCommand extends Command {
                 + "7. delete <task number> - Deletes a task\n"
                 + "8. find <keyword> - Finds tasks containing the keyword\n"
                 + "9. help - Displays this help message\n"
-                + "10. bye - Exits the application";
+                + "10. bye - Exits the application"
+                + "11. save - Saves the current task list to disk"
+                + "12. load - Loads the task list from disk";
         ui.showMessage(id, helpMessage);
     }
 
