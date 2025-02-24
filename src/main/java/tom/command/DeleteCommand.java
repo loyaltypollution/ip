@@ -2,6 +2,7 @@ package tom.command;
 
 import tom.exception.InvalidIndexException;
 import tom.storage.Storage;
+import tom.task.Task;
 import tom.tasklist.TaskList;
 import tom.ui.Ui;
 
@@ -30,8 +31,9 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
+        Task toDelete = tasks.getTask(position);
         tasks.removeTask(position);
-        ui.showMessage(id, "deleted from tasklist");
+        ui.showMessage(id, "noted. I've removed this task: %s", toDelete);
     };
 
     /**
