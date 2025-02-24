@@ -7,6 +7,7 @@ import tom.command.Command;
 import tom.command.LoadCommand;
 import tom.command.PromptCommand;
 import tom.command.ReportErrorCommand;
+import tom.command.WelcomeCommand;
 import tom.exception.TomCommandException;
 import tom.exception.TomParseException;
 import tom.parser.CommandParser;
@@ -43,7 +44,9 @@ public class Tom {
         tasks = new TaskList();
         commandQueue = new LinkedList<>();
 
-        addCommand(new LoadCommand());
+        addCommand(0, new LoadCommand());
+        addCommand(0, new WelcomeCommand());
+        executeCommands();
     }
 
     /**
@@ -91,6 +94,17 @@ public class Tom {
      * @param command The command to be added.
      */
     public void addCommand(Command command) {
+        commandQueue.add(command);
+    }
+
+    /**
+     * Adds a command to the queue.
+     *
+     * @param id The ID of the command.
+     * @param command The command to be added.
+     */
+    public void addCommand(int id, Command command) {
+        command.setId(id);
         commandQueue.add(command);
     }
 
