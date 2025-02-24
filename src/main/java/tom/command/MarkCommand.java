@@ -32,7 +32,11 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws TomCommandException {
         tasks.markTask(position, true);
-        ui.showMessage(id, "marked in tasklist");
+
+        // Let the ListCommand handle the printing of tasks
+        Command command = new ListCommand();
+        command.setId(id);
+        command.execute(tasks, ui, storage);
     };
 
     /**
