@@ -116,7 +116,12 @@ public abstract class CommandParser {
      */
     public Command produceCommand() throws TomParseException {
         if (!isComplete()) {
-            throw new IncompleteParseException("Incomplete command pattern.");
+            String errorMsg = String.format("""
+                Current input: %s
+                Parsed %d out of %d patterns. Please enter: %s
+                """, String.join(" ", inputs), inputs.size(), inputs.size() + patterns.size(),
+                 patterns.element().pattern());
+            throw new IncompleteParseException(errorMsg);
         }
         return createCommand();
     }

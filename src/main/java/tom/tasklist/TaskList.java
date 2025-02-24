@@ -40,6 +40,16 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
+     * Returns the task at the specified position.
+     * 
+     * @param position The position of the task to be retrieved (1-based index).
+     * @return The task at the specified position.
+     */
+    public Task getTask(int position) {
+        return tasks.get(position - 1);
+    }
+
+    /**
      * Removes a task from the list at the specified position.
      *
      * @param position The position of the task to be removed (1-based index).
