@@ -62,6 +62,9 @@ public class Parser {
     public static CommandParser findParser(String commandType, Ui ui) {
         CommandParser parser;
         switch (commandType) {
+        case "help":
+            parser = new HelpCommandParser(ui);
+            break;
         case "bye":
             parser = new ByeCommandParser(ui);
             break;
