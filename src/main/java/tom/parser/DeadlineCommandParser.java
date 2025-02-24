@@ -2,6 +2,7 @@ package tom.parser;
 
 import tom.command.Command;
 import tom.command.DeadlineCommand;
+import tom.exception.TomParseException;
 import tom.ui.Ui;
 
 /**
@@ -20,6 +21,24 @@ public class DeadlineCommandParser extends CommandParser {
         super("deadline", ui);
         addPattern("(\\w+(?: +\\w+)*)?");
         addPattern(DATE_PATTERN);
+    }
+
+    /**
+     * Parses the next input string and matches it against the current pattern.
+     * Attempts to split input into description and date.
+     * 
+     * @param input The input string to be parsed.
+     * @throws TomParseException If the input does not match the current pattern.
+     */
+    @Override
+    public void parseNext(String input) throws TomParseException {
+        String[] parts = input.split(" /by ", 2);
+        if (parts.length > 0) {
+            super.parseNext(parts[0].trim());
+        }
+        if (parts.length > 1) {
+            super.parseNext(parts[1].trim());
+        }
     }
 
     /**

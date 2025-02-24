@@ -2,6 +2,7 @@ package tom.parser;
 
 import tom.command.Command;
 import tom.command.EventCommand;
+import tom.exception.TomParseException;
 import tom.ui.Ui;
 
 /**
@@ -22,6 +23,21 @@ public class EventCommandParser extends CommandParser {
         addPattern("(\\w+(?: +\\w+)*)?");
         addPattern(DATE_PATTERN);
         addPattern(DATE_PATTERN);
+    }
+
+    /**
+     * Parses the next input string and matches it against the current pattern.
+     * Attempts to split input into description and date.
+     * 
+     * @param input The input string to be parsed.
+     * @throws TomParseException If the input does not match the current pattern.
+     */
+    @Override
+    public void parseNext(String input) throws TomParseException {
+        String[] parts = input.split(" /from | /to ");
+        for (String part : parts) {
+            super.parseNext(part.trim());
+        }
     }
 
     /**
