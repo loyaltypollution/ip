@@ -75,7 +75,7 @@ public abstract class CommandParser {
         Matcher matcher = pattern.matcher(input);
 
         if (!matcher.find()) {
-            throw new InvalidRegexException(pattern, input);
+            throw new InvalidRegexException(pattern, "yyyy-MM-dd", input);
         }
         patterns.poll();
         inputs.add(matcher.group());
